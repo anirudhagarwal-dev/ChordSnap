@@ -84,7 +84,6 @@ export function Login({ onLogin, onClose, onSwitchToSignUp }: Props) {
           </button>
         </div>
 
-        {/* Login Method Toggle */}
         <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
           <button
             onClick={() => setLoginMethod('email')}

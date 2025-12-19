@@ -9,13 +9,11 @@ export function Contact() {
         Get in touch with our team members for any questions or support.
       </p>
 
-      {/* Team Members Section */}
       <div style={{ marginTop: '60px' }}>
         <h2 style={{ fontSize: '32px', fontWeight: 600, marginBottom: '40px', color: 'var(--text-primary)', textAlign: 'center' }}>
           Our Team
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-          {/* Team Member 1 - Ankit */}
           <div
             style={{
               backgroundColor: 'var(--card-bg)',
@@ -78,7 +76,6 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Team Member 2 - Anirudh */}
           <div
             style={{
               backgroundColor: 'var(--card-bg)',
@@ -141,7 +138,6 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Team Member 3 */}
           <div
             style={{
               backgroundColor: 'var(--card-bg)',

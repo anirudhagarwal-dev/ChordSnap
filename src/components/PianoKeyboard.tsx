@@ -6,7 +6,6 @@ type Props = {
 const WHITE_KEYS = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 const BLACK_KEYS = ['C#', 'D#', 'F#', 'G#', 'A#']
 
-// Chord to notes mapping
 const CHORD_NOTES: Record<string, string[]> = {
   C: ['C', 'E', 'G'],
   'Cm': ['C', 'D#', 'G'],
@@ -33,9 +32,7 @@ export function PianoKeyboard({ chord, onKeyPress }: Props) {
 
   const handleKeyClick = (note: string) => {
     onKeyPress?.(note)
-    // Play note sound (simplified - would use Web Audio API in production)
     const audio = new Audio()
-    // In production, use actual note samples
   }
 
   return (
@@ -51,7 +48,6 @@ export function PianoKeyboard({ chord, onKeyPress }: Props) {
         {chord} - Piano
       </h4>
       <div style={{ position: 'relative', height: '200px', display: 'flex' }}>
-        {/* White keys */}
         {WHITE_KEYS.map((note, idx) => {
           const isPressed = isNoteInChord(note)
           return (
@@ -86,7 +82,6 @@ export function PianoKeyboard({ chord, onKeyPress }: Props) {
             </button>
           )
         })}
-        {/* Black keys */}
         {BLACK_KEYS.map((note, idx) => {
           const isPressed = isNoteInChord(note)
           const whiteKeyIndex = note === 'C#' ? 0 : note === 'D#' ? 1 : note === 'F#' ? 3 : note === 'G#' ? 4 : 5

@@ -5,7 +5,6 @@ type Props = {
 }
 
 export function PitchAnalysis({ pitches }: Props) {
-  // Sample pitches to 100 points for display
   const sampledPitches = pitches.length > 100 
     ? pitches.filter((_, i) => i % Math.ceil(pitches.length / 100) === 0).slice(0, 100)
     : pitches

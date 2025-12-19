@@ -68,7 +68,6 @@ export function Tuner({ onTune }: Props) {
     const dataArray = new Float32Array(bufferLength)
     analyserRef.current.getFloatTimeDomainData(dataArray)
 
-    // Simple pitch detection using autocorrelation
     const sampleRate = audioContextRef.current?.sampleRate || 44100
     const detectedFreq = detectFrequency(dataArray, sampleRate)
 
@@ -84,7 +83,6 @@ export function Tuner({ onTune }: Props) {
   }
 
   const detectFrequency = (data: Float32Array, sampleRate: number): number => {
-    // Simplified autocorrelation-based pitch detection
     let maxCorrelation = 0
     let maxPeriod = 0
 
@@ -111,14 +109,12 @@ export function Tuner({ onTune }: Props) {
     let cents = 0
 
     for (const [note, noteFreq] of Object.entries(NOTE_FREQUENCIES)) {
-      // Check multiple octaves
       for (let octave = 0; octave < 5; octave++) {
         const octaveFreq = noteFreq * Math.pow(2, octave)
         const diff = Math.abs(freq - octaveFreq)
         if (diff < minDiff) {
           minDiff = diff
           closestNote = note
-          // Calculate cents (100 cents = 1 semitone)
           const semitones = 12 * Math.log2(freq / octaveFreq)
           cents = Math.round(semitones * 100)
         }

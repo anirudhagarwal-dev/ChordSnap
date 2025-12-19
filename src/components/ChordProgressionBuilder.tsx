@@ -77,7 +77,6 @@ export function ChordProgressionBuilder() {
         🎼 Chord Progression Builder
       </h3>
 
-      {/* Mood Generator */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
           Generate by Mood:
@@ -105,7 +104,6 @@ export function ChordProgressionBuilder() {
         </div>
       </div>
 
-      {/* Progression Display */}
       <div
         style={{
           minHeight: '120px',
@@ -165,7 +163,6 @@ export function ChordProgressionBuilder() {
         )}
       </div>
 
-      {/* Chord Palette */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
           Click to Add Chords:
@@ -210,7 +207,6 @@ export function ChordProgressionBuilder() {
         </div>
       </div>
 
-      {/* Actions */}
       <div style={{ display: 'flex', gap: '12px' }}>
         <button
           onClick={playProgression}

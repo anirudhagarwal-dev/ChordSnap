@@ -30,7 +30,6 @@ export function ProgressTracker() {
         📊 Your Progress
       </h3>
 
-      {/* Level & XP */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
           <span style={{ fontSize: '16px', color: 'var(--text-primary)', fontWeight: 600 }}>
@@ -60,7 +59,6 @@ export function ProgressTracker() {
         </div>
       </div>
 
-      {/* Stats Grid */}
       <div
         style={{
           display: 'grid',
@@ -123,7 +121,6 @@ export function ProgressTracker() {
         </div>
       </div>
 
-      {/* Badges */}
       {userBadges.length > 0 && (
         <div>
           <h4 style={{ fontSize: '16px', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>

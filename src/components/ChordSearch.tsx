@@ -45,7 +45,6 @@ export function ChordSearch({ onChordSelect }: Props) {
         Chord Search & Visualization
       </h3>
 
-      {/* Search Input */}
       <div style={{ marginBottom: '24px' }}>
         <input
           type="text"
@@ -64,7 +63,6 @@ export function ChordSearch({ onChordSelect }: Props) {
         />
       </div>
 
-      {/* Chord List */}
       <div
         style={{
           display: 'grid',
@@ -107,7 +105,6 @@ export function ChordSearch({ onChordSelect }: Props) {
         ))}
       </div>
 
-      {/* Instrument Selector */}
       <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap' }}>
         {(['guitar', 'piano', 'ukulele', 'bass'] as const).map((inst) => (
           <button
@@ -130,7 +127,6 @@ export function ChordSearch({ onChordSelect }: Props) {
         ))}
       </div>
 
-      {/* Visualization */}
       <div>
         {selectedInstrument === 'piano' ? (
           <PianoKeyboard chord={selectedChord} />

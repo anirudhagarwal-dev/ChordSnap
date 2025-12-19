@@ -87,7 +87,6 @@ export function UploadPage({ onAnalyze }: Props) {
         margin: '0 auto',
       }}
     >
-      {/* Hero Section */}
       <div style={{ textAlign: 'center', marginBottom: '80px' }}>
         <h2
           style={{
@@ -107,7 +106,6 @@ export function UploadPage({ onAnalyze }: Props) {
           Upload an audio file to detect chords, pitch, scale, and vocals automatically with AI-powered analysis
         </p>
 
-        {/* Upload Box */}
         <div
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -204,7 +202,6 @@ export function UploadPage({ onAnalyze }: Props) {
         </div>
       </div>
 
-      {/* Features Section */}
       <div style={{ marginBottom: '80px' }}>
         <h3
           style={{
@@ -259,7 +256,6 @@ export function UploadPage({ onAnalyze }: Props) {
         </div>
       </div>
 
-      {/* How It Works Section */}
       <div style={{ marginBottom: '60px' }}>
         <h3
           style={{
@@ -335,7 +331,6 @@ export function UploadPage({ onAnalyze }: Props) {
         </div>
       </div>
 
-      {/* Stats Section */}
       <div
         style={{
           backgroundColor: 'var(--bg-secondary)',

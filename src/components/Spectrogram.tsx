@@ -34,7 +34,6 @@ export function Spectrogram({ audioUrl, isLive, audioData }: Props) {
       const dataArray = new Uint8Array(bufferLength)
       analyserRef.current.getByteFrequencyData(dataArray)
 
-      // Draw spectrogram
       const imageData = ctx.createImageData(1, height)
       for (let i = 0; i < height; i++) {
         const value = dataArray[Math.floor((i / height) * bufferLength)]
@@ -50,14 +49,11 @@ export function Spectrogram({ audioUrl, isLive, audioData }: Props) {
         imageData.data[index + 3] = 255
       }
 
-      // Shift existing image left
       const existingImage = ctx.getImageData(1, 0, width - 1, height)
       ctx.putImageData(existingImage, 0, 0)
 
-      // Add new column
       ctx.putImageData(imageData, width - 1, 0)
     } else {
-      // Clear canvas
       ctx.fillStyle = 'var(--bg-primary)'
       ctx.fillRect(0, 0, width, height)
     }

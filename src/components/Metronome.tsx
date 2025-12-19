@@ -89,7 +89,6 @@ export function Metronome({ initialBPM = 120 }: Props) {
       </h3>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center' }}>
-        {/* BPM Display */}
         <div style={{ textAlign: 'center' }}>
           <div
             style={{
@@ -104,7 +103,6 @@ export function Metronome({ initialBPM = 120 }: Props) {
           <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>BPM</div>
         </div>
 
-        {/* BPM Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', width: '100%', maxWidth: '300px' }}>
           <button
             onClick={() => setBpm(Math.max(40, bpm - 5))}
@@ -152,7 +150,6 @@ export function Metronome({ initialBPM = 120 }: Props) {
           </button>
         </div>
 
-        {/* Beat Indicator */}
         {isPlaying && (
           <div style={{ display: 'flex', gap: '8px' }}>
             {[0, 1, 2, 3].map((i) => (
@@ -170,7 +167,6 @@ export function Metronome({ initialBPM = 120 }: Props) {
           </div>
         )}
 
-        {/* Play/Pause Button */}
         <button
           onClick={toggleMetronome}
           style={{

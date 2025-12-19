@@ -52,7 +52,6 @@ export function ChordCards({ segments, onSeek }: Props) {
               }}
               onClick={() => onSeek?.(segment.startSec)}
             >
-              {/* Chord Name */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--text-primary)' }}>{segment.chord}</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
@@ -60,7 +59,6 @@ export function ChordCards({ segments, onSeek }: Props) {
                 </div>
               </div>
 
-              {/* Confidence Bar */}
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Confidence</span>
@@ -88,7 +86,6 @@ export function ChordCards({ segments, onSeek }: Props) {
                 </div>
               </div>
 
-              {/* Constituent Notes */}
               {segment.notes && segment.notes.length > 0 && (
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {segment.notes.map((note, noteIdx) => (

@@ -23,7 +23,6 @@ export function AnalysisDetails({ key, scale, keyConfidence = 0, vocalsDetected,
       </h3>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-        {/* Key & Scale */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
             <span style={{ fontSize: '20px' }}>🎵</span>
@@ -66,7 +65,6 @@ export function AnalysisDetails({ key, scale, keyConfidence = 0, vocalsDetected,
           </div>
         </div>
 
-        {/* Vocals */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
             <span style={{ fontSize: '20px' }}>🎤</span>

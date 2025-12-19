@@ -65,7 +65,6 @@ export function addXP(amount: number, reason: string): UserProgress {
   const progress = getProgress()
   const today = new Date().toDateString()
   
-  // Update streak
   if (progress.lastPracticeDate !== today) {
     const lastDate = progress.lastPracticeDate ? new Date(progress.lastPracticeDate) : null
     const todayDate = new Date()
@@ -88,7 +87,6 @@ export function addXP(amount: number, reason: string): UserProgress {
   progress.xp += amount
   progress.level = getLevelFromXP(progress.xp)
 
-  // Check for new badges
   const newBadges = checkBadges(progress)
   if (newBadges.length > 0) {
     progress.badges = [...new Set([...progress.badges, ...newBadges])]
@@ -96,7 +94,6 @@ export function addXP(amount: number, reason: string): UserProgress {
 
   saveProgress(progress)
 
-  // Level up notification
   if (progress.level > oldLevel) {
     return progress
   }
