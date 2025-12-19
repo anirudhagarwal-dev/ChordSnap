@@ -135,7 +135,6 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
     setTracks(project.tracks)
     setProjectName(project.name)
     if (project.analysisResult && onAnalyze) {
-      // Would need to reload the analysis result
       alert('Project loaded. Please re-analyze the original audio file.')
     }
   }

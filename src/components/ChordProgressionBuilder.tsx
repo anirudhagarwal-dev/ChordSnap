@@ -59,7 +59,6 @@ export function ChordProgressionBuilder() {
   }
 
   const playProgression = () => {
-    // In a real implementation, this would play the chords using Web Audio API
     console.log('Playing progression:', progression)
     alert(`Playing: ${progression.join(' - ')}`)
   }

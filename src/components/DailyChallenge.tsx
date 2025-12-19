@@ -34,7 +34,6 @@ export function DailyChallenge() {
   const [completed, setCompleted] = useState(false)
 
   useEffect(() => {
-    // Load today's challenge from localStorage
     const today = new Date().toDateString()
     const stored = localStorage.getItem(`challenge-${today}`)
     if (stored) {
@@ -43,7 +42,6 @@ export function DailyChallenge() {
       setProgress(data.progress)
       setCompleted(data.completed)
     } else {
-      // Pick random challenge for today
       const randomChallenge = CHALLENGES[Math.floor(Math.random() * CHALLENGES.length)]
       setChallenge(randomChallenge)
       localStorage.setItem(

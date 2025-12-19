@@ -143,7 +143,6 @@ export default function App() {
       const json = (await res.json()) as AnalyzeResponse
       setResult(json)
       setTransposedSegments(json.segments)
-      // Record chord detection for gamification
       recordChordDetected()
     } catch (error) {
       console.error('Analysis error:', error)
@@ -157,7 +156,6 @@ export default function App() {
         errorMessage = String(error.message)
       }
       
-      // Check if it's a network error
       if (errorMessage.includes('Failed to fetch') || errorMessage.includes('NetworkError')) {
         errorMessage = 'Cannot connect to backend server. Please ensure the backend is running on http://localhost:8000'
       }
