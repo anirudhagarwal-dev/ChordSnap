@@ -53,7 +53,6 @@ export function Header({
       </div>
       
       <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
-        {/* Navigation Links */}
         <nav style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
           {navItems.map((item) => (
             <button
@@ -86,7 +85,6 @@ export function Header({
           ))}
         </nav>
 
-        {/* User Actions */}
         {user ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
@@ -160,7 +158,6 @@ export function Header({
           </div>
         )}
 
-        {/* Theme Toggle */}
         {onThemeToggle && (
           <button
             onClick={onThemeToggle}

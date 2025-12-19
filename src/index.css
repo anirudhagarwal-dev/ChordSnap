@@ -5,7 +5,6 @@
 }
 
 :root {
-  /* Dark theme (default) - using provided color palette */
   --bg-primary: #000000;
   --bg-secondary: #4A70A9;
   --bg-tertiary: #8FABD4;
@@ -20,7 +19,6 @@
 }
 
 [data-theme='light'] {
-  /* Light theme - using provided color palette */
   --bg-primary: #FEF9E1;
   --bg-secondary: #E5D0AC;
   --bg-tertiary: #d5c09c;

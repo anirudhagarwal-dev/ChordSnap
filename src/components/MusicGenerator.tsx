@@ -13,6 +13,7 @@ type Props = {
     scale?: string
     tempo?: number
   } | null
+  tempo?: number
 }
 
 type Track = {
@@ -36,7 +37,6 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
   const [isRecording, setIsRecording] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Load saved projects from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('chordsnap-projects')
     if (saved) {
@@ -80,12 +80,10 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
           const errorData = await response.json()
           errorMessage = errorData.detail || errorMessage
         } catch (e) {
-          // If response is not JSON, try to get text
           try {
             const text = await response.text()
             if (text) errorMessage = text
           } catch (e2) {
-            // Use default error message
           }
         }
         throw new Error(errorMessage)
@@ -164,7 +162,6 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
         Upload or record vocals, detect chords, and generate a complete instrumental accompaniment.
       </p>
 
-      {/* Upload/Record Section */}
       <div
         style={{
           backgroundColor: 'var(--card-bg)',
@@ -203,9 +200,7 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
               <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>OR</p>
               <MicrophoneInput
                 onAudioData={async (audioData) => {
-                  // Convert Float32Array to WAV and analyze
                   console.log('Recording audio:', audioData.length)
-                  // In a real implementation, you'd convert and send to backend
                 }}
               />
             </div>
@@ -222,7 +217,6 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
         )}
       </div>
 
-      {/* Track Controls */}
       {analysisResult && (
         <div
           style={{
@@ -304,7 +298,6 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
         </div>
       )}
 
-      {/* Generated Audio Player */}
       {mixedAudioUrl && (
         <div
           style={{
@@ -344,7 +337,6 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
         </div>
       )}
 
-      {/* Project Management */}
       <div
         style={{
           backgroundColor: 'var(--card-bg)',

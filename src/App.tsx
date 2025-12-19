@@ -67,13 +67,11 @@ export default function App() {
     return savedTheme || 'dark'
   })
 
-  // Apply theme to document
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('chordsnap-theme', theme)
   }, [theme])
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
@@ -81,7 +79,6 @@ export default function App() {
       switch (e.key) {
         case ' ':
           e.preventDefault()
-          // Toggle play/pause would go here
           break
         case 'ArrowLeft':
           e.preventDefault()
@@ -134,12 +131,10 @@ export default function App() {
           const errorData = await res.json()
           errorMessage = errorData.detail || errorData.message || errorMessage
         } catch (e) {
-          // If response is not JSON, try to get text
           try {
             const text = await res.text()
             if (text) errorMessage = text
           } catch (e2) {
-            // Use default error message
           }
         }
         throw new Error(errorMessage)
@@ -184,7 +179,6 @@ export default function App() {
   }
 
   const handleLogin = (email: string, password: string, phone?: string) => {
-    // In a real app, this would call an API
     const userData: User = { email, phone }
     setUser(userData)
     localStorage.setItem('chordsnap-user', JSON.stringify(userData))
@@ -192,7 +186,6 @@ export default function App() {
   }
 
   const handleSignUp = (email: string, password: string, phone: string, name: string) => {
-    // In a real app, this would call an API
     const userData: User = { email, phone, name }
     setUser(userData)
     localStorage.setItem('chordsnap-user', JSON.stringify(userData))
@@ -205,9 +198,12 @@ export default function App() {
     setCurrentPage('home')
   }
 
-  const handleNavigate = (page: Page) => {
-    setCurrentPage(page)
-    if (page !== 'home') {
+  const handleNavigate = (page: string) => {
+    const validPages = ['home', 'features', 'about', 'contact'] as Page[]
+    const p: Page = validPages.includes(page as Page) ? (page as Page) : 'home'
+
+    setCurrentPage(p)
+    if (p !== 'home') {
       setResult(null)
       setActiveTab('upload')
     }
@@ -246,8 +242,6 @@ export default function App() {
   }
 
   const handleLiveAudio = async (audioData: Float32Array) => {
-    // In a real implementation, you'd send audio chunks to the backend for real-time analysis
-    // For now, this is a placeholder
     console.log('Live audio data received:', audioData.length)
   }
 
@@ -255,7 +249,7 @@ export default function App() {
   const totalChords = segments.length
   const vocalsText = result?.vocalsDetected ? 'Vocals detected' : 'No vocals detected'
 
-  // Render different pages
+  
   if (currentPage === 'features') {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
@@ -390,7 +384,6 @@ export default function App() {
         <UploadPage onAnalyze={onAnalyze} />
       ) : (
         <div style={{ padding: '40px', paddingBottom: '200px', maxWidth: '1600px', margin: '0 auto' }}>
-          {/* Main Tabs */}
           <Tabs
             tabs={['Analysis', 'Music Generator', 'Practice', 'Live Detection', 'Tools', 'Visualize', 'Games']}
             activeTab={
@@ -417,7 +410,6 @@ export default function App() {
             }}
           />
 
-          {/* Music Generator Tab */}
           {activeTab === 'generator' && (
             <MusicGenerator
               onAnalyze={onAnalyze}
@@ -426,7 +418,6 @@ export default function App() {
             />
           )}
 
-          {/* Analysis Tab */}
           {activeTab === 'upload' && result && (
             <>
               <div style={{ marginBottom: '32px' }}>
@@ -474,7 +465,6 @@ export default function App() {
             </>
           )}
 
-          {/* Practice Tab */}
           {activeTab === 'practice' && result && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               <div
@@ -505,7 +495,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Games Tab */}
           {activeTab === 'games' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
@@ -515,7 +504,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Live Detection Tab */}
           {activeTab === 'live' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               <div>
@@ -534,7 +522,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Tools Tab */}
           {activeTab === 'tools' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
@@ -545,7 +532,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Visualize Tab */}
           {activeTab === 'visualize' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               <div>
@@ -592,14 +578,12 @@ export default function App() {
         </div>
       )}
 
-      {/* Audio Player */}
       {fileUrl && result && (
         <AudioPlayer
           src={fileUrl}
           duration={result.durationSec}
           onTimeUpdate={(time) => {
             setCurrentTime(time)
-            // Track practice time
             if (!practiceStartTime) {
               setPracticeStartTime(Date.now())
             } else {
@@ -616,7 +600,6 @@ export default function App() {
         />
       )}
 
-      {/* Auth Modals */}
       {showLogin && (
         <Login
           onLogin={handleLogin}
@@ -638,7 +621,6 @@ export default function App() {
         />
       )}
 
-      {/* Loading Overlay */}
       {isAnalyzing && (
         <div
           style={{
