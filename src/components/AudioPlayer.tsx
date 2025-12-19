@@ -20,19 +20,15 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
   const [lastScrollY, setLastScrollY] = useState(0)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Hide/show player on scroll
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       
-      // Show player if at top of page
       if (currentScrollY < 50) {
         setIsVisible(true)
       } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down - hide
         setIsVisible(false)
       } else if (currentScrollY < lastScrollY) {
-        // Scrolling up - show
         setIsVisible(true)
       }
       
@@ -54,7 +50,6 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
       setCurrentTime(audio.currentTime)
       onTimeUpdate?.(audio.currentTime)
 
-      // Handle looping
       if (isLooping && loopStart !== undefined && loopEnd !== undefined) {
         if (audio.currentTime >= loopEnd) {
           audio.currentTime = loopStart
@@ -143,7 +138,6 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
     >
       <audio ref={audioRef} src={src} style={{ display: 'none' }} />
 
-      {/* Timeline */}
       <div
         onClick={handleSeek}
         style={{
@@ -181,7 +175,6 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
         </div>
       </div>
 
-      {/* Controls */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{formatTime(currentTime)}</div>
 
@@ -239,9 +232,7 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
         <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{formatTime(duration)}</div>
       </div>
 
-      {/* Additional Controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-        {/* Loop Toggle */}
         <button
           onClick={() => setIsLooping(!isLooping)}
           style={{
@@ -262,7 +253,6 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
           <span>Loop</span>
         </button>
 
-        {/* Playback Rate */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Speed:</span>
           <button

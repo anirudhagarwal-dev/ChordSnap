@@ -9,7 +9,6 @@ export function Waveform({ duration, segments, currentTime = 0, onSeek }: Props)
   const width = 1000
   const height = 120
 
-  // Generate simple waveform data (in real app, this would come from audio analysis)
   const points = 200
   const waveformData = Array.from({ length: points }, (_, i) => {
     const x = (i / points) * width
@@ -70,7 +69,6 @@ export function Waveform({ duration, segments, currentTime = 0, onSeek }: Props)
             </g>
           )
         })}
-        {/* Current time indicator */}
         <line
           x1={(currentTime / duration) * width}
           y1={0}
