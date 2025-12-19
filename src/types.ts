@@ -1,4 +1,4 @@
-export type Instrument = 'guitar' | 'piano' | 'ukulele'
+export type Instrument = 'guitar' | 'piano' | 'ukulele' | 'bass'
 
 export type ChordSegment = {
   startSec: number

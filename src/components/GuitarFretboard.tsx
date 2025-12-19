@@ -7,7 +7,6 @@ const GUITAR_STRINGS = ['E', 'A', 'D', 'G', 'B', 'E']
 const UKULELE_STRINGS = ['G', 'C', 'E', 'A']
 const BASS_STRINGS = ['E', 'A', 'D', 'G']
 
-// Basic chord fingerings (simplified)
 const CHORD_FINGERINGS: Record<string, number[][]> = {
   C: [[0, 1], [1, 0], [2, 0], [3, 0], [4, 1], [5, 0]],
   'Cm': [[0, 3], [1, 3], [2, 0], [3, 3], [4, 1], [5, 0]],
@@ -57,7 +56,6 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
               {string}
             </div>
             <div style={{ display: 'flex', gap: '2px', position: 'relative', flex: 1 }}>
-              {/* Nut */}
               <div
                 style={{
                   width: '8px',
@@ -67,7 +65,6 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
                   borderRadius: '2px',
                 }}
               />
-              {/* Frets */}
               {Array.from({ length: frets }).map((_, fretIdx) => {
                 const fretNum = fretIdx + 1
                 const fingerPos = fingering.find((f) => f[0] === stringIdx)
@@ -85,7 +82,6 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
                       justifyContent: 'center',
                     }}
                   >
-                    {/* Fret wire */}
                     <div
                       style={{
                         position: 'absolute',
@@ -96,7 +92,6 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
                         backgroundColor: 'var(--border-color)',
                       }}
                     />
-                    {/* Finger position */}
                     {isFingered && (
                       <div
                         style={{
@@ -117,7 +112,6 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
                         {fretNum}
                       </div>
                     )}
-                    {/* Open string indicator */}
                     {fretIdx === 0 && !isFingered && (
                       <div
                         style={{
