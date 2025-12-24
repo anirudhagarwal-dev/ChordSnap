@@ -6,7 +6,7 @@ import io
 from typing import List, Dict, Optional
 
 from .chords.analyzer import analyze_audio_filelike
-from .music.generator import generate_music_tracks, mix_tracks, save_audio_to_wav
+# from .music.generator import generate_music_tracks, mix_tracks, save_audio_to_wav
 
 
 class AnalyzeResponse(BaseModel):
@@ -100,18 +100,16 @@ async def analyze(file: UploadFile = File(...), instrument: str | None = None):
         
     #     wav_bytes = save_audio_to_wav(mixed_audio)
         
-        return Response(
-            content=wav_bytes,
-            media_type="audio/wav",
-            headers={"Content-Disposition": "attachment; filename=generated_music.wav"}
-        )
-    except HTTPException:
-        raise
-    except Exception as exc:
-        import traceback
-        error_detail = str(exc)
-        print(f"Music generation error: {error_detail}")
-        print(traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Music generation failed: {error_detail}")
-
-
+    #     return Response(
+    #         content=wav_bytes,
+    #         media_type="audio/wav",
+    #         headers={"Content-Disposition": "attachment; filename=generated_music.wav"}
+    #     )
+    # except HTTPException:
+    #     raise
+    # except Exception as exc:
+    #     import traceback
+    #     error_detail = str(exc)
+    #     print(f"Music generation error: {error_detail}")
+    #     print(traceback.format_exc())
+    #     raise HTTPException(status_code=500, detail=f"Music generation failed: {error_detail}")
