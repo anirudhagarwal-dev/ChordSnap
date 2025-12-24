@@ -1,2 +1,0 @@
-# Chord detection module
-

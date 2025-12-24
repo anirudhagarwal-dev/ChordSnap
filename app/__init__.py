@@ -1,2 +1,0 @@
-# ChordSnap backend package
-

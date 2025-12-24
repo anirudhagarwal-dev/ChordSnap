@@ -1,2 +1,0 @@
-# Music generation module
-
