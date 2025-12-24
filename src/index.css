@@ -5,17 +5,18 @@
 }
 
 :root {
-  --bg-primary: #000000;
-  --bg-secondary: #4A70A9;
-  --bg-tertiary: #8FABD4;
-  --text-primary: #EFECE3;
-  --text-secondary: #8FABD4;
-  --accent-purple: #4A70A9;
-  --accent-purple-light: #8FABD4;
-  --accent-teal: #4A70A9;
-  --accent-green: #4A70A9;
-  --border-color: #4A70A9;
-  --card-bg: #4A70A9;
+  /* Modern Dark Theme */
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-tertiary: #2D2D2D;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --accent-purple: #BB86FC;
+  --accent-purple-light: #E0B6FF;
+  --accent-teal: #03DAC6;
+  --accent-green: #4CAF50;
+  --border-color: #333333;
+  --card-bg: #1E1E1E;
 }
 
 [data-theme='light'] {
@@ -56,4 +57,3 @@ button {
 input[type="file"] {
   display: none;
 }
-
