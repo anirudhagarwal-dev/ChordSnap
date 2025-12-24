@@ -64,7 +64,7 @@ export default function App() {
   })
   const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('chordsnap-theme') as Theme | null
-    return savedTheme || 'dark'
+    return savedTheme || 'light'
   })
 
   useEffect(() => {
