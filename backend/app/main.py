@@ -65,39 +65,40 @@ async def analyze(file: UploadFile = File(...), instrument: str | None = None):
         raise HTTPException(status_code=500, detail=f"Analysis failed: {error_detail}")
 
 
-class GenerateMusicRequest(BaseModel):
-    segments: List[Dict]
-    tempo: float
-    duration: float
-    enabled_tracks: Optional[Dict[str, bool]] = None
-    volumes: Optional[Dict[str, float]] = None
+# class GenerateMusicRequest(BaseModel):
+#     segments: List[Dict]
+#     tempo: float
+#     duration: float
+#     enabled_tracks: Optional[Dict[str, bool]] = None
+#     volumes: Optional[Dict[str, float]] = None
 
 
-@app.post("/generate-music")
-async def generate_music(request: GenerateMusicRequest):
-    try:
-        if not request.segments:
-            raise HTTPException(status_code=400, detail="No chord segments provided")
+# @app.post("/generate-music")
+# async def generate_music(request: GenerateMusicRequest): # type: ignore
+#     raise HTTPException(status_code=501, detail="Music generation module is missing")
+    # try:
+    #     if not request.segments:
+    #         raise HTTPException(status_code=400, detail="No chord segments provided")
         
-        if request.tempo <= 0 or request.duration <= 0:
-            raise HTTPException(status_code=400, detail="Invalid tempo or duration")
+    #     if request.tempo <= 0 or request.duration <= 0:
+    #         raise HTTPException(status_code=400, detail="Invalid tempo or duration")
         
-        tracks = generate_music_tracks(
-            request.segments,
-            request.tempo,
-            request.duration,
-            request.enabled_tracks
-        )
+    #     tracks = generate_music_tracks(
+    #         request.segments,
+    #         request.tempo,
+    #         request.duration,
+    #         request.enabled_tracks
+    #     )
         
-        if not tracks:
-            raise HTTPException(status_code=400, detail="No tracks were generated")
+    #     if not tracks:
+    #         raise HTTPException(status_code=400, detail="No tracks were generated")
         
-        mixed_audio = mix_tracks(tracks, request.volumes)
+    #     mixed_audio = mix_tracks(tracks, request.volumes)
         
-        if len(mixed_audio) == 0:
-            raise HTTPException(status_code=500, detail="Failed to mix tracks")
+    #     if len(mixed_audio) == 0:
+    #         raise HTTPException(status_code=500, detail="Failed to mix tracks")
         
-        wav_bytes = save_audio_to_wav(mixed_audio)
+    #     wav_bytes = save_audio_to_wav(mixed_audio)
         
         return Response(
             content=wav_bytes,
