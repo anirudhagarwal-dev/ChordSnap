@@ -427,4 +427,3 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
     </div>
   )
 }
-
