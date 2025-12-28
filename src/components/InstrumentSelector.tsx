@@ -17,5 +17,3 @@ export function InstrumentSelector({ value, onChange }: Props) {
     </div>
   )
 }
-
-
