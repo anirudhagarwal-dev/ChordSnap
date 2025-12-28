@@ -247,4 +247,3 @@ export function Login({ onLogin, onClose, onSwitchToSignUp }: Props) {
     </div>
   )
 }
-
