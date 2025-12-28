@@ -112,4 +112,3 @@ export function AnalysisDetails({ key, scale, keyConfidence = 0, vocalsDetected,
     </div>
   )
 }
-
