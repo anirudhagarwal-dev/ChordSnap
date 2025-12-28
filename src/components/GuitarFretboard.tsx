@@ -132,4 +132,3 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
     </div>
   )
 }
-
