@@ -193,4 +193,3 @@ export function Metronome({ initialBPM = 120 }: Props) {
     </div>
   )
 }
-
