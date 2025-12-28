@@ -59,4 +59,3 @@ export function ChordTimelineNew({ segments, duration, onSeek }: Props) {
     </div>
   )
 }
-
