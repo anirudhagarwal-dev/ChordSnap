@@ -38,4 +38,3 @@ export function Tabs({ tabs, activeTab, onTabChange }: Props) {
     </div>
   )
 }
-
