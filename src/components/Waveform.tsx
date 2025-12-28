@@ -82,4 +82,3 @@ export function Waveform({ duration, segments, currentTime = 0, onSeek }: Props)
     </div>
   )
 }
-
