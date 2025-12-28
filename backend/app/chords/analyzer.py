@@ -294,5 +294,3 @@ def analyze_audio_filelike(file_like: io.BytesIO, instrument: str | None = None)
         "vocalsConfidence": vocals_confidence,
         "pitches": pitches,
     }
-
-

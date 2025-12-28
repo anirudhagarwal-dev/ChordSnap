@@ -123,4 +123,3 @@ export function PianoKeyboard({ chord, onKeyPress }: Props) {
     </div>
   )
 }
-

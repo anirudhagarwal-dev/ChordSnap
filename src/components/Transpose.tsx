@@ -110,4 +110,3 @@ export function Transpose({ segments, onTranspose }: Props) {
     </div>
   )
 }
-

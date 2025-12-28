@@ -111,4 +111,3 @@ export function ChordCards({ segments, onSeek }: Props) {
     </div>
   )
 }
-

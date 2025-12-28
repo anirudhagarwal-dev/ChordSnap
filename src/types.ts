@@ -26,5 +26,3 @@ export type AnalyzeResponse = {
   fileName?: string
   tempo?: number
 }
-
-

@@ -146,4 +146,3 @@ export function PracticeMode({ segments, duration, currentTime, isPlaying, onSee
     </div>
   )
 }
-

@@ -148,4 +148,3 @@ export function completeChallenge(): void {
   progress.challengesCompleted += 1
   addXP(XP_PER_CHALLENGE, 'challenge')
 }
-

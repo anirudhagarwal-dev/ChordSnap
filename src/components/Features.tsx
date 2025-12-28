@@ -187,4 +187,3 @@ export function Features() {
     </div>
   )
 }
-

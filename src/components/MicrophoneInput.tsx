@@ -147,4 +147,3 @@ export function MicrophoneInput({ onAudioData, onStop }: Props) {
     </div>
   )
 }
-

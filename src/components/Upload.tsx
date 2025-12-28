@@ -16,5 +16,3 @@ export function Upload({ onAnalyze }: Props) {
     </div>
   )
 }
-
-

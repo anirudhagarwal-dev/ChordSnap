@@ -297,4 +297,3 @@ export function AudioPlayer({ src, duration, onTimeUpdate, onPlayingChange, loop
     </div>
   )
 }
-

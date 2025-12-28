@@ -18,11 +18,8 @@ ChordSnap is a Python-based web app that analyzes uploaded audio files (.mp3/.wa
 ```bash
 cd backend
 python -m venv .venv
-# Activate virtual environment:
-. .venv/Scripts/activate  # Windows PowerShell: . .venv/Scripts/Activate.ps1
-# Install dependencies:
+. .venv/Scripts/activate
 pip install -r requirements.txt
-# Run server:
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -33,7 +30,6 @@ uvicorn app.main:app --reload --port 8000
 The frontend is located in the project root.
 
 ```bash
-# In the project root directory
 npm install
 npm run dev
 ```

@@ -9,5 +9,3 @@ createRoot(rootEl).render(
     <App />
   </React.StrictMode>
 )
-
-

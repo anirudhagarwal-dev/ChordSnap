@@ -149,4 +149,3 @@ export function Spectrogram({ audioUrl, isLive, audioData }: Props) {
     </div>
   )
 }
-
