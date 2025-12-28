@@ -260,4 +260,3 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
     </div>
   )
 }
-
