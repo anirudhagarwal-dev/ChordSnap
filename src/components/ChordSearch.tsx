@@ -137,4 +137,3 @@ export function ChordSearch({ onChordSelect }: Props) {
     </div>
   )
 }
-
