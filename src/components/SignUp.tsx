@@ -143,7 +143,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+1 234 567 8900"
+              placeholder="+91"
               style={{
                 width: '100%',
                 padding: '12px 16px',
