@@ -22,8 +22,68 @@ export function Contact() {
               border: '1px solid var(--border-color)',
               textAlign: 'center',
               transition: 'all 0.3s ease',
-              maxWidth: '400px',
-              margin: '0 auto'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)'
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(74, 112, 169, 0.3)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
+          >
+            <div
+              style={{
+                width: '120px',
+                height: '120px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--bg-tertiary)',
+                margin: '0 auto 24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '48px',
+                color: 'var(--text-primary)',
+              }}
+            >
+              🤖
+            </div>
+            <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>
+              Ankit Lawaniya
+            </h3>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+              <strong>Roll No:</strong> 2400270130034
+            </p>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+              <strong>Domain:</strong> Full Stack Developer
+            </p>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
+              <span style={{ fontSize: '20px', marginRight: '8px' }}>📞</span>
+              <strong>Phone:</strong> 9267932341
+            </p>
+            <div
+              style={{
+                display: 'inline-block',
+                padding: '8px 16px',
+                backgroundColor: 'var(--bg-tertiary)',
+                borderRadius: '8px',
+                fontSize: '14px',
+                color: 'var(--text-primary)',
+                fontWeight: 500,
+              }}
+            >
+              Full Stack Developer
+            </div>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              padding: '32px',
+              borderRadius: '16px',
+              border: '1px solid var(--border-color)',
+              textAlign: 'center',
+              transition: 'all 0.3s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-8px)'
@@ -62,6 +122,68 @@ export function Contact() {
             <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
               <span style={{ fontSize: '20px', marginRight: '8px' }}>📞</span>
               <strong>Phone:</strong> 8527870864
+            </p>
+            <div
+              style={{
+                display: 'inline-block',
+                padding: '8px 16px',
+                backgroundColor: 'var(--bg-tertiary)',
+                borderRadius: '8px',
+                fontSize: '14px',
+                color: 'var(--text-primary)',
+                fontWeight: 500,
+              }}
+            >
+              Full Stack Developer
+            </div>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              padding: '32px',
+              borderRadius: '16px',
+              border: '1px solid var(--border-color)',
+              textAlign: 'center',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-8px)'
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(74, 112, 169, 0.3)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
+          >
+            <div
+              style={{
+                width: '120px',
+                height: '120px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--bg-tertiary)',
+                margin: '0 auto 24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '48px',
+                color: 'var(--text-primary)',
+              }}
+            >
+              💻
+            </div>
+            <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>
+              Akshendra Dweidi
+            </h3>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+              <strong>Roll No:</strong> 2400270130025
+            </p>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+              <strong>Domain:</strong> Full Stack Developer
+            </p>
+            <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
+              <span style={{ fontSize: '20px', marginRight: '8px' }}>📞</span>
+              <strong>Phone:</strong> 8010906123
             </p>
             <div
               style={{

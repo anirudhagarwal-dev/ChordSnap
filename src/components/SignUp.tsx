@@ -63,6 +63,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
       onClick={onClose}
     >
       <div
+        className="no-scrollbar"
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderRadius: '16px',
@@ -101,7 +102,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="John Doe"
+              placeholder="Striver Burgur"
               style={{
                 width: '100%',
                 padding: '12px 16px',
@@ -143,7 +144,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+1 234 567 8900"
+              placeholder="+91"
               style={{
                 width: '100%',
                 padding: '12px 16px',
