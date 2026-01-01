@@ -56,3 +56,15 @@ button {
 input[type="file"] {
   display: none;
 }
+
+.github-icon {
+  transition: filter 0.3s ease;
+}
+
+[data-theme='dark'] .github-icon {
+  filter: invert(1);
+}
+
+[data-theme='light'] .github-icon {
+  filter: invert(0);
+}

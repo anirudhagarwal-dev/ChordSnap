@@ -27,7 +27,7 @@ export function Footer() {
             onMouseEnter={(e) => (e.currentTarget.style.color = '#0077b5')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
           >
-            <span style={{ fontSize: '20px' }}>👔</span>
+            <img src="/linkedin.png" alt="LinkedIn" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
             LinkedIn
           </a>
           <a
@@ -46,12 +46,12 @@ export function Footer() {
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
           >
-            <span style={{ fontSize: '20px' }}>💻</span>
+            <img src="/github.svg" alt="GitHub" className="github-icon" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
             GitHub
           </a>
         </div>
         <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
-          © {new Date().getFullYear()} ChordSnap. Built with ❤️ by Anirudh Agarwal.
+          © {new Date().getFullYear()} ChordSnap.
         </p>
       </div>
     </footer>
