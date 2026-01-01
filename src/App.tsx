@@ -26,6 +26,7 @@ import { Login } from './components/Login'
 import { SignUp } from './components/SignUp'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
+import { Footer } from './components/Footer'
 import { Features } from './components/Features'
 import { recordChordDetected, recordPracticeTime } from './utils/gamification'
 import type { AnalyzeResponse, ChordSegment } from './types'
@@ -262,6 +263,7 @@ export default function App() {
           onLogout={handleLogout}
         />
         <Features />
+        <Footer />
         {showLogin && (
           <Login
             onLogin={handleLogin}
@@ -300,6 +302,7 @@ export default function App() {
           onLogout={handleLogout}
         />
         <About />
+        <Footer />
         {showLogin && (
           <Login
             onLogin={handleLogin}
@@ -338,6 +341,7 @@ export default function App() {
           onLogout={handleLogout}
         />
         <Contact />
+        <Footer />
         {showLogin && (
           <Login
             onLogin={handleLogin}
@@ -575,6 +579,8 @@ export default function App() {
           )}
         </div>
       )}
+
+      <Footer />
 
       {fileUrl && result && (
         <AudioPlayer
