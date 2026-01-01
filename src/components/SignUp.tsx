@@ -101,7 +101,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="John Doe"
+              placeholder="Striver Burgur"
               style={{
                 width: '100%',
                 padding: '12px 16px',
