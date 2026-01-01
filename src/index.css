@@ -68,3 +68,12 @@ input[type="file"] {
 [data-theme='light'] .github-icon {
   filter: invert(0);
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

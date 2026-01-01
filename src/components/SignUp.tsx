@@ -63,6 +63,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
       onClick={onClose}
     >
       <div
+        className="no-scrollbar"
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderRadius: '16px',
