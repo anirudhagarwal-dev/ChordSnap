@@ -63,7 +63,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
       onClick={onClose}
     >
       <div
-        className="no-scrollbar"
+        className="no-scrollbar responsive-padding-large"
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderRadius: '16px',
