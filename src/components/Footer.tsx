@@ -10,7 +10,7 @@ export function Footer() {
       }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px', marginBottom: '16px' }}>
+        <div className="mobile-stack" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px', marginBottom: '16px' }}>
           <a
             href="https://www.linkedin.com/in/anirudh-agarwal-2b7b41332/"
             target="_blank"
