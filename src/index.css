@@ -77,3 +77,53 @@ input[type="file"] {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-container {
+    padding: 20px !important;
+  }
+
+  .mobile-stack {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .responsive-heading {
+    font-size: 32px !important;
+  }
+  
+  .responsive-padding-large {
+    padding: 24px 20px !important;
+  }
+  
+  .responsive-card-padding {
+    padding: 20px !important;
+  }
+
+  .responsive-grid-col {
+    grid-template-columns: 1fr !important;
+  }
+
+  .responsive-flex-wrap {
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
