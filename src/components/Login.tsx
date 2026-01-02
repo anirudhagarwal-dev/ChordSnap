@@ -57,6 +57,7 @@ export function Login({ onLogin, onClose, onSwitchToSignUp }: Props) {
       onClick={onClose}
     >
       <div
+        className="responsive-padding-large"
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderRadius: '16px',
