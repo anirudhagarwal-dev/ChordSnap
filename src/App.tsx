@@ -385,7 +385,7 @@ export default function App() {
       {!result && activeTab === 'upload' ? (
         <UploadPage onAnalyze={onAnalyze} />
       ) : (
-        <div style={{ padding: '40px', paddingBottom: '200px', maxWidth: '1600px', margin: '0 auto' }}>
+        <div className="responsive-padding-large" style={{ padding: '40px', paddingBottom: '200px', maxWidth: '1600px', margin: '0 auto' }}>
           <Tabs
             tabs={['Analysis', 'Music Generator', 'Practice', 'Live Detection', 'Tools', 'Visualize', 'Games']}
             activeTab={
@@ -443,7 +443,7 @@ export default function App() {
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                   gap: '24px',
                   marginBottom: '32px',
                 }}
@@ -472,7 +472,7 @@ export default function App() {
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                   gap: '24px',
                 }}
               >
@@ -491,7 +491,7 @@ export default function App() {
                 />
               )}
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
                 <ChordProgressionBuilder />
               </div>
             </div>
@@ -499,7 +499,7 @@ export default function App() {
 
           {activeTab === 'games' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
                 <ChordChallenge />
                 <ProgressTracker />
               </div>
@@ -517,7 +517,7 @@ export default function App() {
                 </p>
                 <MicrophoneInput onAudioData={handleLiveAudio} />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
                 <Tuner />
                 <Spectrogram isLive={true} />
               </div>
