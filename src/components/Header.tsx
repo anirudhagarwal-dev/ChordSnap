@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 type Props = {
   onExport?: () => void
   onThemeToggle?: () => void
@@ -25,11 +27,20 @@ export function Header({
   onSignUp,
   onLogout
 }: Props) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   const navItems = [
     { label: 'Features', page: 'features' },
     { label: 'About', page: 'about' },
     { label: 'Contact Us', page: 'contact' },
   ]
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+
+  const handleNavClick = (page: string) => {
+    onNavigate?.(page)
+    setIsMenuOpen(false)
+  }
 
   return (
     <header
@@ -40,7 +51,10 @@ export function Header({
         padding: '20px 40px',
         borderBottom: '1px solid var(--border-color)',
         backgroundColor: 'var(--bg-primary)',
+        position: 'relative',
+        zIndex: 100,
       }}
+      className="mobile-container"
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <span style={{ fontSize: '28px', color: '#E5D0AC' }}>♫</span>
@@ -52,7 +66,7 @@ export function Header({
         </h1>
       </div>
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+      <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
         <nav style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
           {navItems.map((item) => (
             <button
@@ -186,6 +200,135 @@ export function Header({
           </button>
         )}
       </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        className="mobile-only"
+        onClick={toggleMenu}
+        style={{
+          fontSize: '24px',
+          color: 'var(--text-primary)',
+          zIndex: 102,
+        }}
+      >
+        {isMenuOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div
+          className="mobile-only"
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            backgroundColor: 'var(--bg-secondary)',
+            borderBottom: '1px solid var(--border-color)',
+            padding: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+            zIndex: 101,
+          }}
+        >
+          {navItems.map((item) => (
+            <button
+              key={item.page}
+              onClick={() => handleNavClick(item.page)}
+              style={{
+                color: currentPage === item.page ? 'var(--accent-purple)' : 'var(--text-primary)',
+                textAlign: 'left',
+                fontSize: '18px',
+                padding: '10px 0',
+                borderBottom: '1px solid var(--border-color)',
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+
+          {user ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+               <span style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>
+                Signed in as: {user.name || user.email}
+              </span>
+              {showNewFile && onNewFile && (
+                <button
+                  onClick={() => { onNewFile(); setIsMenuOpen(false); }}
+                  style={{
+                    color: 'var(--accent-purple)',
+                    textAlign: 'left',
+                    fontSize: '16px',
+                  }}
+                >
+                  Analyze New File
+                </button>
+              )}
+               {onExport && (
+                <button
+                  onClick={() => { onExport(); setIsMenuOpen(false); }}
+                  style={{
+                    color: 'var(--text-primary)',
+                    textAlign: 'left',
+                    fontSize: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                  }}
+                >
+                  <span>📥</span> Export
+                </button>
+              )}
+              <button
+                onClick={() => { onLogout?.(); setIsMenuOpen(false); }}
+                style={{
+                  padding: '12px',
+                  backgroundColor: 'var(--accent-purple)',
+                  color: 'var(--text-primary)',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  width: '100%',
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => { onLogin?.(); setIsMenuOpen(false); }}
+              style={{
+                padding: '12px',
+                backgroundColor: 'var(--accent-purple)',
+                color: 'var(--text-primary)',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: 500,
+                width: '100%',
+              }}
+            >
+              Login
+            </button>
+          )}
+          
+          {onThemeToggle && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '10px' }}>
+              <span style={{ color: 'var(--text-primary)', fontSize: '16px' }}>Theme</span>
+              <button
+                onClick={onThemeToggle}
+                style={{
+                  fontSize: '24px',
+                  color: 'var(--text-primary)',
+                }}
+              >
+                {theme === 'dark' ? '☀️' : '🌙'}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   )
 }
