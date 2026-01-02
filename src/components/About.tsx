@@ -1,7 +1,7 @@
 export function About() {
   return (
-    <div style={{ padding: '60px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>
+    <div className="responsive-padding-large" style={{ padding: '60px 40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <h1 className="responsive-heading" style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>
         About ChordSnap
       </h1>
       
@@ -20,10 +20,10 @@ export function About() {
       </div>
 
       <div style={{ marginTop: '60px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 600, marginBottom: '30px', color: 'var(--text-primary)' }}>
+        <h2 className="responsive-heading" style={{ fontSize: '32px', fontWeight: 600, marginBottom: '30px', color: 'var(--text-primary)' }}>
           Key Features
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
           {[
             {
               title: 'Chord Detection',
@@ -71,7 +71,7 @@ export function About() {
       </div>
 
       <div style={{ marginTop: '60px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 600, marginBottom: '30px', color: 'var(--text-primary)' }}>
+        <h2 className="responsive-heading" style={{ fontSize: '32px', fontWeight: 600, marginBottom: '30px', color: 'var(--text-primary)' }}>
           Technology
         </h2>
         <p style={{ fontSize: '16px', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
