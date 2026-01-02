@@ -89,6 +89,7 @@ export function UploadPage({ onAnalyze }: Props) {
     >
       <div style={{ textAlign: 'center', marginBottom: '80px' }}>
         <h2
+          className="responsive-heading"
           style={{
             fontSize: '56px',
             fontWeight: 700,
@@ -107,6 +108,7 @@ export function UploadPage({ onAnalyze }: Props) {
         </p>
 
         <div
+          className="responsive-padding-large"
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -204,6 +206,7 @@ export function UploadPage({ onAnalyze }: Props) {
 
       <div style={{ marginBottom: '80px' }}>
         <h3
+          className="responsive-heading"
           style={{
             fontSize: '36px',
             fontWeight: 700,
@@ -217,13 +220,14 @@ export function UploadPage({ onAnalyze }: Props) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '24px',
           }}
         >
           {features.map((feature, idx) => (
             <div
               key={idx}
+              className="responsive-card-padding"
               style={{
                 backgroundColor: 'var(--card-bg)',
                 borderRadius: '16px',
@@ -258,6 +262,7 @@ export function UploadPage({ onAnalyze }: Props) {
 
       <div style={{ marginBottom: '60px' }}>
         <h3
+          className="responsive-heading"
           style={{
             fontSize: '36px',
             fontWeight: 700,
@@ -271,7 +276,7 @@ export function UploadPage({ onAnalyze }: Props) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '32px',
             maxWidth: '1000px',
             margin: '0 auto',
@@ -332,6 +337,7 @@ export function UploadPage({ onAnalyze }: Props) {
       </div>
 
       <div
+        className="responsive-padding-large"
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderRadius: '20px',
@@ -342,7 +348,7 @@ export function UploadPage({ onAnalyze }: Props) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
             gap: '40px',
             textAlign: 'center',
           }}
