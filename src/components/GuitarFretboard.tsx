@@ -41,9 +41,9 @@ export function GuitarFretboard({ chord, instrument = 'guitar' }: Props) {
       <h4 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '16px', color: 'var(--text-primary)' }}>
         {chord} - {instrument.charAt(0).toUpperCase() + instrument.slice(1)}
       </h4>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', overflowX: 'auto', paddingBottom: '8px' }}>
         {strings.map((string, stringIdx) => (
-          <div key={stringIdx} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <div key={stringIdx} style={{ display: 'flex', alignItems: 'center', gap: '4px', minWidth: 'max-content' }}>
             <div
               style={{
                 width: '40px',

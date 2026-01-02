@@ -31,6 +31,7 @@ export function Waveform({ duration, segments, currentTime = 0, onSeek }: Props)
         width="100%"
         height={height}
         viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="none"
         onClick={handleClick}
         style={{ cursor: 'pointer' }}
       >

@@ -128,9 +128,9 @@ export function Features() {
   ]
 
   return (
-    <div style={{ padding: '60px 40px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div className="responsive-padding-large" style={{ padding: '60px 40px', maxWidth: '1400px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-        <h1 style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>
+        <h1 className="responsive-heading" style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>
           Features
         </h1>
         <p style={{ fontSize: '20px', color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto' }}>
@@ -141,6 +141,7 @@ export function Features() {
       {features.map((category, categoryIndex) => (
         <div key={categoryIndex} style={{ marginBottom: '60px' }}>
           <h2
+            className="responsive-heading"
             style={{
               fontSize: '32px',
               fontWeight: 600,
@@ -152,10 +153,11 @@ export function Features() {
           >
             {category.category}
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
             {category.items.map((feature, featureIndex) => (
               <div
                 key={featureIndex}
+                className="responsive-card-padding"
                 style={{
                   backgroundColor: 'var(--card-bg)',
                   padding: '28px',
