@@ -152,8 +152,8 @@ export function MusicGenerator({ onAnalyze, analysisResult, tempo = 120 }: Props
   }
 
   return (
-    <div style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto' }}>
-      <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: '30px', color: 'var(--text-primary)' }}>
+    <div className="responsive-padding-large" style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto' }}>
+      <h2 className="responsive-heading" style={{ fontSize: '32px', fontWeight: 700, marginBottom: '30px', color: 'var(--text-primary)' }}>
         AI Music Generator
       </h2>
 
