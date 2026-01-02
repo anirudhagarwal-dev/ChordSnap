@@ -1,7 +1,7 @@
 export function Contact() {
   return (
-    <div style={{ padding: '60px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)', textAlign: 'center' }}>
+    <div className="responsive-padding-large" style={{ padding: '60px 40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <h1 className="responsive-heading" style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)', textAlign: 'center' }}>
         Contact Us
       </h1>
       
@@ -10,11 +10,12 @@ export function Contact() {
       </p>
 
       <div style={{ marginTop: '60px' }}>
-        <h2 style={{ fontSize: '32px', fontWeight: 600, marginBottom: '40px', color: 'var(--text-primary)', textAlign: 'center' }}>
+        <h2 className="responsive-heading" style={{ fontSize: '32px', fontWeight: 600, marginBottom: '40px', color: 'var(--text-primary)', textAlign: 'center' }}>
           Our Team
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', justifyContent: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px', justifyContent: 'center' }}>
           <div
+            className="responsive-card-padding"
             style={{
               backgroundColor: 'var(--card-bg)',
               padding: '32px',
@@ -77,6 +78,7 @@ export function Contact() {
           </div>
 
           <div
+            className="responsive-card-padding"
             style={{
               backgroundColor: 'var(--card-bg)',
               padding: '32px',
@@ -139,6 +141,7 @@ export function Contact() {
           </div>
 
           <div
+            className="responsive-card-padding"
             style={{
               backgroundColor: 'var(--card-bg)',
               padding: '32px',
