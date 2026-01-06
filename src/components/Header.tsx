@@ -57,8 +57,9 @@ export function Header({
       className="mobile-container"
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span style={{ fontSize: '28px', color: '#E5D0AC' }}>♫</span>
+        <span data-speed="0.6" style={{ fontSize: '28px', color: '#E5D0AC' }}>♫</span>
         <h1 
+          data-lag="0.3"
           style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text-primary)', cursor: 'pointer' }}
           onClick={() => onNavigate?.('home')}
         >
@@ -66,7 +67,7 @@ export function Header({
         </h1>
       </div>
       
-      <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+      <div className="desktop-only" data-speed="0.95" style={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
         <nav style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
           {navItems.map((item) => (
             <button
