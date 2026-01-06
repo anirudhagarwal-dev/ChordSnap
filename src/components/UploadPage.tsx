@@ -87,7 +87,7 @@ export function UploadPage({ onAnalyze }: Props) {
         margin: '0 auto',
       }}
     >
-      <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <h2
           className="responsive-heading"
           style={{
@@ -115,9 +115,9 @@ export function UploadPage({ onAnalyze }: Props) {
           onClick={handleClick}
           style={{
             width: '100%',
-            maxWidth: '700px',
-            margin: '0 auto',
-            minHeight: '350px',
+            maxWidth: '760px',
+            margin: '-12px auto 0',
+            minHeight: '320px',
             border: `2px dashed ${isDragging ? 'var(--accent-purple)' : 'var(--border-color)'}`,
             borderRadius: '20px',
             backgroundColor: 'var(--bg-secondary)',
@@ -125,11 +125,12 @@ export function UploadPage({ onAnalyze }: Props) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '24px',
-            padding: '50px 40px',
+            gap: '16px',
+            padding: '36px 32px',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
-            boxShadow: isDragging ? '0 0 30px rgba(163, 29, 29, 0.3)' : 'none',
+            boxShadow: isDragging ? '0 12px 32px rgba(0,0,0,0.25)' : '0 8px 20px rgba(0,0,0,0.18)',
+            overflow: 'visible',
           }}
         >
           <div style={{ fontSize: '80px', color: 'var(--accent-purple)' }}>☁️</div>
