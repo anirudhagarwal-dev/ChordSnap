@@ -130,10 +130,10 @@ export function Features() {
   return (
     <div className="responsive-padding-large" style={{ padding: '60px 40px', maxWidth: '1400px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-        <h1 className="responsive-heading" style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>
+        <h1 className="responsive-heading" data-speed="0.7" data-lag="0.4" style={{ fontSize: '48px', fontWeight: 700, marginBottom: '20px', color: 'var(--text-primary)' }}>
           Features
         </h1>
-        <p style={{ fontSize: '20px', color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto' }}>
+        <p data-speed="0.9" data-lag="0.3" style={{ fontSize: '20px', color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto' }}>
           Discover all the powerful features that make ChordSnap the ultimate tool for music analysis and learning.
         </p>
       </div>
@@ -142,6 +142,7 @@ export function Features() {
         <div key={categoryIndex} style={{ marginBottom: '60px' }}>
           <h2
             className="responsive-heading"
+            data-speed="0.85"
             style={{
               fontSize: '32px',
               fontWeight: 600,
@@ -158,6 +159,7 @@ export function Features() {
               <div
                 key={featureIndex}
                 className="responsive-card-padding"
+                data-lag="0.2"
                 style={{
                   backgroundColor: 'var(--card-bg)',
                   padding: '28px',
@@ -174,7 +176,7 @@ export function Features() {
                   e.currentTarget.style.boxShadow = 'none'
                 }}
               >
-                <div style={{ fontSize: '40px', marginBottom: '16px' }}>{feature.icon}</div>
+                <div data-speed="0.6" style={{ fontSize: '40px', marginBottom: '16px' }}>{feature.icon}</div>
                 <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px', color: 'var(--text-primary)' }}>
                   {feature.title}
                 </h3>
