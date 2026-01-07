@@ -1,19 +1,55 @@
 import { useState, useRef, useEffect } from 'react'
 
-const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-const NOTE_FREQUENCIES: Record<string, number> = {
-  C: 261.63,
-  'C#': 277.18,
-  D: 293.66,
-  'D#': 311.13,
-  E: 329.63,
-  F: 349.23,
-  'F#': 369.99,
-  G: 392.0,
-  'G#': 415.3,
-  A: 440.0,
-  'A#': 466.16,
-  B: 493.88,
+const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+const TUNINGS: Record<
+  string,
+  { name: string; strings: { label: string; freq: number }[] }
+> = {
+  standard: {
+    name: 'Standard (EADGBE)',
+    strings: [
+      { label: 'E4', freq: 329.63 },
+      { label: 'B3', freq: 246.94 },
+      { label: 'G3', freq: 196.0 },
+      { label: 'D3', freq: 146.83 },
+      { label: 'A2', freq: 110.0 },
+      { label: 'E2', freq: 82.41 },
+    ],
+  },
+  dropd: {
+    name: 'Drop D',
+    strings: [
+      { label: 'E4', freq: 329.63 },
+      { label: 'B3', freq: 246.94 },
+      { label: 'G3', freq: 196.0 },
+      { label: 'D3', freq: 146.83 },
+      { label: 'A2', freq: 110.0 },
+      { label: 'D2', freq: 73.42 },
+    ],
+  },
+  openg: {
+    name: 'Open G',
+    strings: [
+      { label: 'D4', freq: 293.66 },
+      { label: 'B3', freq: 246.94 },
+      { label: 'G3', freq: 196.0 },
+      { label: 'D3', freq: 146.83 },
+      { label: 'G2', freq: 98.0 },
+      { label: 'D2', freq: 73.42 },
+    ],
+  },
+  halfstep: {
+    name: 'Half-step Down',
+    strings: [
+      { label: 'Eb4', freq: 311.13 },
+      { label: 'Bb3', freq: 233.08 },
+      { label: 'Gb3', freq: 185.0 },
+      { label: 'Db3', freq: 138.59 },
+      { label: 'Ab2', freq: 103.83 },
+      { label: 'Eb2', freq: 77.78 },
+    ],
+  },
 }
 
 type Props = {
@@ -22,14 +58,22 @@ type Props = {
 
 export function Tuner({ onTune }: Props) {
   const [isActive, setIsActive] = useState(false)
-  const [currentNote, setCurrentNote] = useState<string>('A')
+  const [currentNote, setCurrentNote] = useState<string>('--')
   const [cents, setCents] = useState(0)
   const [frequency, setFrequency] = useState(0)
+  const [a4, setA4] = useState(440)
+  const [mode, setMode] = useState<'auto' | 'manual'>('auto')
+  const [tuningKey, setTuningKey] = useState<keyof typeof TUNINGS>('standard')
+  const [manualStringIdx, setManualStringIdx] = useState(0)
+  const [amplitude, setAmplitude] = useState(0)
+  const [noiseThreshold, setNoiseThreshold] = useState(0.02)
   const audioContextRef = useRef<AudioContext | null>(null)
   const analyserRef = useRef<AnalyserNode | null>(null)
   const microphoneRef = useRef<MediaStreamAudioSourceNode | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const animationFrameRef = useRef<number | null>(null)
+  const freqBufferRef = useRef<number[]>([])
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
     return () => {
@@ -71,57 +115,77 @@ export function Tuner({ onTune }: Props) {
     const sampleRate = audioContextRef.current?.sampleRate || 44100
     const detectedFreq = detectFrequency(dataArray, sampleRate)
 
+    const rms = Math.sqrt(dataArray.reduce((s, v) => s + v * v, 0) / dataArray.length)
+    setAmplitude(rms)
+    renderWaves()
+    if (rms < noiseThreshold) {
+      animationFrameRef.current = requestAnimationFrame(detectPitch)
+      return
+    }
+
     if (detectedFreq > 0) {
-      setFrequency(detectedFreq)
-      const closestNote = findClosestNote(detectedFreq)
-      setCurrentNote(closestNote.note)
-      setCents(closestNote.cents)
-      onTune?.(closestNote.note, closestNote.cents)
+      const buf = freqBufferRef.current
+      buf.push(detectedFreq)
+      if (buf.length > 8) buf.shift()
+      const stableFreq = buf.slice().sort((a, b) => a - b)[Math.floor(buf.length / 2)]
+      setFrequency(stableFreq)
+      const info = noteInfo(stableFreq, a4)
+      let targetCents = info.cents
+      let displayNote = info.name
+
+      if (mode === 'auto') {
+        const t = TUNINGS[tuningKey].strings
+        const nearest = t.reduce<{ idx: number; diff: number }>(
+          (best, s, idx) => {
+            const diff = Math.abs(stableFreq - s.freq)
+            return diff < best.diff ? { idx, diff } : best
+          },
+          { idx: 0, diff: Infinity }
+        )
+        const target = t[nearest.idx]
+        displayNote = target.label
+        targetCents = centsToTarget(stableFreq, target.freq)
+      } else {
+        const target = TUNINGS[tuningKey].strings[manualStringIdx]
+        displayNote = target.label
+        targetCents = centsToTarget(stableFreq, target.freq)
+      }
+
+      setCurrentNote(displayNote)
+      setCents(Math.max(-50, Math.min(50, Math.round(targetCents))))
+      onTune?.(displayNote, Math.round(targetCents))
     }
 
     animationFrameRef.current = requestAnimationFrame(detectPitch)
   }
 
   const detectFrequency = (data: Float32Array, sampleRate: number): number => {
-    let maxCorrelation = 0
-    let maxPeriod = 0
-
-    for (let period = 20; period < data.length / 2; period++) {
-      let correlation = 0
-      for (let i = 0; i < data.length - period; i++) {
-        correlation += data[i] * data[i + period]
+    let maxCorr = 0
+    let bestPeriod = 0
+    const len = data.length
+    for (let period = 24; period < len / 2; period++) {
+      let corr = 0
+      for (let i = 0; i < len - period; i++) {
+        corr += data[i] * data[i + period]
       }
-      if (correlation > maxCorrelation) {
-        maxCorrelation = correlation
-        maxPeriod = period
+      if (corr > maxCorr) {
+        maxCorr = corr
+        bestPeriod = period
       }
     }
-
-    if (maxPeriod > 0) {
-      return sampleRate / maxPeriod
-    }
-    return 0
+    return bestPeriod > 0 ? sampleRate / bestPeriod : 0
   }
 
-  const findClosestNote = (freq: number): { note: string; cents: number } => {
-    let closestNote = 'A'
-    let minDiff = Infinity
-    let cents = 0
+  const noteInfo = (freq: number, a4Freq: number) => {
+    const n = Math.round(12 * Math.log2(freq / a4Freq) + 69)
+    const cents = Math.round(100 * (12 * Math.log2(freq / a4Freq) + 69 - n))
+    const name = NOTE_NAMES[n % 12]
+    const octave = Math.floor(n / 12) - 1
+    return { name: `${name}${octave}`, cents }
+  }
 
-    for (const [note, noteFreq] of Object.entries(NOTE_FREQUENCIES)) {
-      for (let octave = 0; octave < 5; octave++) {
-        const octaveFreq = noteFreq * Math.pow(2, octave)
-        const diff = Math.abs(freq - octaveFreq)
-        if (diff < minDiff) {
-          minDiff = diff
-          closestNote = note
-          const semitones = 12 * Math.log2(freq / octaveFreq)
-          cents = Math.round(semitones * 100)
-        }
-      }
-    }
-
-    return { note: closestNote, cents }
+  const centsToTarget = (freq: number, targetFreq: number) => {
+    return 1200 * Math.log2(freq / targetFreq)
   }
 
   const stopTuner = () => {
@@ -149,6 +213,7 @@ export function Tuner({ onTune }: Props) {
     setIsActive(false)
     setFrequency(0)
     setCents(0)
+    setCurrentNote('--')
   }
 
   const getTuningColor = () => {
@@ -156,6 +221,37 @@ export function Tuner({ onTune }: Props) {
     if (absCents < 5) return 'var(--accent-green)'
     if (absCents < 20) return 'var(--accent-teal)'
     return 'var(--accent-purple)'
+  }
+
+  const renderWaves = () => {
+    const c = canvasRef.current
+    if (!c) return
+    const ctx = c.getContext('2d')!
+    const dpr = Math.max(1, window.devicePixelRatio || 1)
+    const w = 560
+    const h = 120
+    c.width = Math.floor(w * dpr)
+    c.height = Math.floor(h * dpr)
+    c.style.width = w + 'px'
+    c.style.height = h + 'px'
+    ctx.clearRect(0, 0, c.width, c.height)
+    const base = getTuningColor()
+    ctx.strokeStyle = base
+    ctx.globalAlpha = 0.4
+    ctx.lineWidth = dpr
+    const amp = Math.min(30, Math.max(6, amplitude * 240))
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath()
+      for (let x = 0; x <= c.width; x += 8 * dpr) {
+        const y =
+          c.height / 2 +
+          Math.sin(x / (80 * dpr) + (performance.now() / 1000) * (0.6 + i * 0.2)) *
+            (amp - i * 6) * dpr
+        if (x === 0) ctx.moveTo(x, y)
+        else ctx.lineTo(x, y)
+      }
+      ctx.stroke()
+    }
   }
 
   return (
@@ -169,8 +265,101 @@ export function Tuner({ onTune }: Props) {
       }}
     >
       <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '24px', color: 'var(--text-primary)' }}>
-        Tuner
+        Guitar Tuner
       </h3>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '16px',
+          marginBottom: '16px',
+        }}
+      >
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Mode</label>
+          <select
+            value={mode}
+            onChange={(e) => setMode(e.target.value as 'auto' | 'manual')}
+            style={{
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--text-primary)',
+              borderRadius: '8px',
+              padding: '8px 12px',
+              border: '1px solid var(--border-color)',
+            }}
+          >
+            <option value="auto">Auto</option>
+            <option value="manual">Manual</option>
+          </select>
+        </div>
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Tuning</label>
+          <select
+            value={tuningKey}
+            onChange={(e) => setTuningKey(e.target.value as keyof typeof TUNINGS)}
+            style={{
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--text-primary)',
+              borderRadius: '8px',
+              padding: '8px 12px',
+              border: '1px solid var(--border-color)',
+            }}
+          >
+            {Object.keys(TUNINGS).map((k) => (
+              <option key={k} value={k}>
+                {TUNINGS[k].name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>A4</label>
+          <input
+            type="range"
+            min={430}
+            max={450}
+            step={1}
+            value={a4}
+            onChange={(e) => setA4(parseInt(e.target.value))}
+            style={{ width: '160px' }}
+          />
+          <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{a4} Hz</span>
+        </div>
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
+          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Noise</label>
+          <input
+            type="range"
+            min={0}
+            max={0.1}
+            step={0.005}
+            value={noiseThreshold}
+            onChange={(e) => setNoiseThreshold(parseFloat(e.target.value))}
+            style={{ width: '160px' }}
+          />
+        </div>
+      </div>
+
+      {mode === 'manual' && (
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '12px', flexWrap: 'wrap' }}>
+          {TUNINGS[tuningKey].strings.map((s, idx) => (
+            <button
+              key={s.label}
+              onClick={() => setManualStringIdx(idx)}
+              style={{
+                padding: '8px 12px',
+                backgroundColor: manualStringIdx === idx ? 'var(--accent-purple)' : 'var(--bg-tertiary)',
+                color: 'var(--text-primary)',
+                borderRadius: '8px',
+                border: '1px solid var(--border-color)',
+                fontSize: '12px',
+              }}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div style={{ marginBottom: '32px' }}>
         <div
@@ -226,7 +415,7 @@ export function Tuner({ onTune }: Props) {
               <div
                 style={{
                   position: 'absolute',
-                  left: `${50 + (cents / 2)}%`,
+                  left: `${50 + cents}%`,
                   top: 0,
                   bottom: 0,
                   width: '4px',
@@ -240,6 +429,14 @@ export function Tuner({ onTune }: Props) {
               {cents > 0 ? '+' : ''}
               {cents}¢
             </div>
+          </div>
+        )}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <canvas ref={canvasRef} width={560} height={120} style={{ maxWidth: '100%' }} />
+        </div>
+        {isActive && Math.abs(cents) < 5 && (
+          <div style={{ marginTop: '12px', fontSize: '14px', color: 'var(--accent-green)' }}>
+            ✓ {currentNote} tuned
           </div>
         )}
       </div>
