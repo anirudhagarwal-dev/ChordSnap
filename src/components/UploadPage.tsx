@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Tuner } from './Tuner'
 
 type Props = {
   onAnalyze: (file: File) => Promise<void> | void
@@ -203,6 +204,10 @@ export function UploadPage({ onAnalyze }: Props) {
             style={{ display: 'none' }}
           />
         </div>
+      </div>
+
+      <div style={{ maxWidth: '760px', margin: '0 auto 60px' }}>
+        <Tuner />
       </div>
 
       <div style={{ marginBottom: '80px' }}>
