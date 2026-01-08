@@ -176,7 +176,7 @@ export function UploadPage({ onAnalyze }: Props) {
             style={{
               padding: '14px 40px',
               backgroundColor: 'var(--accent-purple)',
-              color: 'var(--text-primary)',
+              color: 'var(--text-on-accent)',
               borderRadius: '10px',
               fontSize: '16px',
               fontWeight: 600,

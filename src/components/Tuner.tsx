@@ -277,8 +277,9 @@ export function Tuner({ onTune }: Props) {
         }}
       >
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Mode</label>
+          <label htmlFor="tuner-mode" style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Mode</label>
           <select
+            id="tuner-mode"
             value={mode}
             onChange={(e) => setMode(e.target.value as 'auto' | 'manual')}
             style={{
@@ -294,8 +295,9 @@ export function Tuner({ onTune }: Props) {
           </select>
         </div>
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Tuning</label>
+          <label htmlFor="tuner-tuning" style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Tuning</label>
           <select
+            id="tuner-tuning"
             value={tuningKey}
             onChange={(e) => setTuningKey(e.target.value as keyof typeof TUNINGS)}
             style={{
@@ -314,27 +316,31 @@ export function Tuner({ onTune }: Props) {
           </select>
         </div>
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>A4</label>
+          <label htmlFor="tuner-a4" style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>A4</label>
           <input
+            id="tuner-a4"
             type="range"
             min={430}
             max={450}
             step={1}
             value={a4}
             onChange={(e) => setA4(parseInt(e.target.value))}
+            aria-label="Reference pitch A4"
             style={{ width: '160px' }}
           />
           <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{a4} Hz</span>
         </div>
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', alignItems: 'center' }}>
-          <label style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Noise</label>
+          <label htmlFor="tuner-noise" style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Noise</label>
           <input
+            id="tuner-noise"
             type="range"
             min={0}
             max={0.1}
             step={0.005}
             value={noiseThreshold}
             onChange={(e) => setNoiseThreshold(parseFloat(e.target.value))}
+            aria-label="Noise threshold"
             style={{ width: '160px' }}
           />
         </div>
@@ -446,7 +452,7 @@ export function Tuner({ onTune }: Props) {
         style={{
           padding: '14px 32px',
           backgroundColor: isActive ? '#ef4444' : 'var(--accent-purple)',
-          color: 'var(--text-primary)',
+          color: 'var(--text-on-accent)',
           borderRadius: '10px',
           fontSize: '16px',
           fontWeight: 600,

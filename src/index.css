@@ -10,6 +10,7 @@
   --bg-tertiary: #2D2D2D;
   --text-primary: #FFFFFF;
   --text-secondary: #B3B3B3;
+  --text-on-accent: #FFFFFF;
   --accent-purple: #BB86FC;
   --accent-purple-light: #E0B6FF;
   --accent-teal: #03DAC6;
@@ -24,6 +25,7 @@
   --bg-tertiary: #d5c09c;
   --text-primary: #6D2323;
   --text-secondary: #A31D1D;
+  --text-on-accent: #FFFFFF;
   --accent-purple: #A31D1D;
   --accent-purple-light: #b32d2d;
   --accent-teal: #A31D1D;
