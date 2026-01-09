@@ -27,7 +27,7 @@ export function Footer() {
             onMouseEnter={(e) => (e.currentTarget.style.color = '#0077b5')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
           >
-            <img src="/linkedin.png" alt="LinkedIn" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+            <img src="/linkedin.svg" alt="LinkedIn" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
             LinkedIn
           </a>
           <a
