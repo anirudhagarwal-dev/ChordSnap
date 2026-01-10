@@ -27,7 +27,7 @@ export function Footer() {
             onMouseEnter={(e) => (e.currentTarget.style.color = '#0077b5')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
           >
-            <img src="/linkedin.svg" alt="LinkedIn" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+            <img src="/linkedin.svg" alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
             LinkedIn
           </a>
           <a
@@ -46,7 +46,7 @@ export function Footer() {
             onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
           >
-            <img src="/github.svg" alt="GitHub" className="github-icon" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+            <img src="/github.svg" alt="" className="github-icon" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
             GitHub
           </a>
         </div>

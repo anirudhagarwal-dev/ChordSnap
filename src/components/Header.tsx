@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { LiquidButton } from './LiquidButton'
 
 type Props = {
   onExport?: () => void
@@ -106,7 +107,7 @@ export function Header({
               {user.name || user.email}
             </span>
             {showNewFile && onNewFile && (
-              <button
+              <LiquidButton
                 onClick={onNewFile}
                 style={{
                   color: 'var(--accent-purple)',
@@ -118,10 +119,10 @@ export function Header({
                 }}
               >
                 Analyze New File
-              </button>
+              </LiquidButton>
             )}
             {onExport && (
-              <button
+              <LiquidButton
                 onClick={onExport}
                 style={{
                   display: 'flex',
@@ -136,9 +137,9 @@ export function Header({
               >
                 <span>📥</span>
                 <span>Export</span>
-              </button>
+              </LiquidButton>
             )}
-            <button
+            <LiquidButton
               onClick={onLogout}
               style={{
                 padding: '8px 16px',
@@ -152,11 +153,11 @@ export function Header({
               }}
             >
               Logout
-            </button>
+            </LiquidButton>
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <button
+            <LiquidButton
               onClick={onLogin}
               style={{
                 color: 'var(--text-primary)',
@@ -169,12 +170,12 @@ export function Header({
               }}
             >
               Login
-            </button>
+            </LiquidButton>
           </div>
         )}
 
         {onThemeToggle && (
-          <button
+          <LiquidButton
             onClick={onThemeToggle}
             style={{
               fontSize: '24px',
@@ -189,16 +190,10 @@ export function Header({
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-            }}
             title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
           >
             {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
+          </LiquidButton>
         )}
       </div>
 
@@ -235,7 +230,7 @@ export function Header({
           }}
         >
           {navItems.map((item) => (
-            <button
+            <LiquidButton
               key={item.page}
               onClick={() => handleNavClick(item.page)}
               style={{
@@ -247,7 +242,7 @@ export function Header({
               }}
             >
               {item.label}
-            </button>
+            </LiquidButton>
           ))}
 
           {user ? (
@@ -256,7 +251,7 @@ export function Header({
                 Signed in as: {user.name || user.email}
               </span>
               {showNewFile && onNewFile && (
-                <button
+                <LiquidButton
                   onClick={() => { onNewFile(); setIsMenuOpen(false); }}
                   style={{
                     color: 'var(--accent-purple)',
@@ -265,10 +260,10 @@ export function Header({
                   }}
                 >
                   Analyze New File
-                </button>
+                </LiquidButton>
               )}
                {onExport && (
-                <button
+                <LiquidButton
                   onClick={() => { onExport(); setIsMenuOpen(false); }}
                   style={{
                     color: 'var(--text-primary)',
@@ -280,9 +275,9 @@ export function Header({
                   }}
                 >
                   <span>📥</span> Export
-                </button>
+                </LiquidButton>
               )}
-              <button
+              <LiquidButton
                 onClick={() => { onLogout?.(); setIsMenuOpen(false); }}
                 style={{
                   padding: '12px',
@@ -295,7 +290,7 @@ export function Header({
                 }}
               >
                 Logout
-              </button>
+              </LiquidButton>
             </div>
           ) : (
             <button
