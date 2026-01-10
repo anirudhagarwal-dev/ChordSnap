@@ -28,7 +28,15 @@ import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { Features } from './components/Features'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { LiquidBackground } from './components/LiquidBackground'
+import { LiquidWaves } from './components/LiquidWaves'
+import { LiquidFilters } from './components/LiquidFilters'
+import { LiquidTransition } from './components/LiquidTransition'
+import { InteractiveLiquid } from './components/InteractiveLiquid'
+import { LiquidButton } from './components/LiquidButton'
 import { recordChordDetected, recordPracticeTime } from './utils/gamification'
+import { LiquidMotionSystem } from './components/LiquidMotionSystem'
 import type { AnalyzeResponse, ChordSegment } from './types'
 import './index.css'
 
@@ -44,7 +52,8 @@ interface User {
   phone?: string
 }
 
-export default function App() {
+const AppContent = () => {
+  const navigate = useNavigate();
   const [result, setResult] = useState<AnalyzeResponse | null>(null)
   const [fileUrl, setFileUrl] = useState<string | null>(null)
   const [fileName, setFileName] = useState<string>('')
@@ -56,7 +65,6 @@ export default function App() {
   const [playbackRate, setPlaybackRate] = useState(1)
   const [isPlaying, setIsPlaying] = useState(false)
   const [practiceStartTime, setPracticeStartTime] = useState<number | null>(null)
-  const [currentPage, setCurrentPage] = useState<Page>('home')
   const [showLogin, setShowLogin] = useState(false)
   const [showSignUp, setShowSignUp] = useState(false)
   const [user, setUser] = useState<User | null>(() => {
@@ -174,7 +182,7 @@ export default function App() {
     setCurrentTime(0)
     setTransposedSegments([])
     setActiveTab('upload')
-    setCurrentPage('home')
+    navigate('/')
   }
 
   const handleLogin = (email: string, password: string, phone?: string) => {
@@ -194,15 +202,12 @@ export default function App() {
   const handleLogout = () => {
     setUser(null)
     localStorage.removeItem('chordsnap-user')
-    setCurrentPage('home')
+    navigate('/')
   }
 
   const handleNavigate = (page: string) => {
-    const validPages = ['home', 'features', 'about', 'contact'] as Page[]
-    const p: Page = validPages.includes(page as Page) ? (page as Page) : 'home'
-
-    setCurrentPage(p)
-    if (p !== 'home') {
+    navigate(page)
+    if (page !== '/') {
       setResult(null)
       setActiveTab('upload')
     }
@@ -249,125 +254,12 @@ export default function App() {
   const vocalsText = result?.vocalsDetected ? 'Vocals detected' : 'No vocals detected'
 
   
-  if (currentPage === 'features') {
-    return (
-      <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
-        <Header
-          theme={theme}
-          onThemeToggle={toggleTheme}
-          onNavigate={handleNavigate}
-          currentPage={currentPage}
-          user={user}
-          onLogin={() => setShowLogin(true)}
-          onSignUp={() => setShowSignUp(true)}
-          onLogout={handleLogout}
-        />
-        <Features />
-        <Footer />
-        {showLogin && (
-          <Login
-            onLogin={handleLogin}
-            onClose={() => setShowLogin(false)}
-            onSwitchToSignUp={() => {
-              setShowLogin(false)
-              setShowSignUp(true)
-            }}
-          />
-        )}
-        {showSignUp && (
-          <SignUp
-            onSignUp={handleSignUp}
-            onClose={() => setShowSignUp(false)}
-            onSwitchToLogin={() => {
-              setShowSignUp(false)
-              setShowLogin(true)
-            }}
-          />
-        )}
-      </div>
-    )
-  }
-
-  if (currentPage === 'about') {
-    return (
-      <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
-        <Header
-          theme={theme}
-          onThemeToggle={toggleTheme}
-          onNavigate={handleNavigate}
-          currentPage={currentPage}
-          user={user}
-          onLogin={() => setShowLogin(true)}
-          onSignUp={() => setShowSignUp(true)}
-          onLogout={handleLogout}
-        />
-        <About />
-        <Footer />
-        {showLogin && (
-          <Login
-            onLogin={handleLogin}
-            onClose={() => setShowLogin(false)}
-            onSwitchToSignUp={() => {
-              setShowLogin(false)
-              setShowSignUp(true)
-            }}
-          />
-        )}
-        {showSignUp && (
-          <SignUp
-            onSignUp={handleSignUp}
-            onClose={() => setShowSignUp(false)}
-            onSwitchToLogin={() => {
-              setShowSignUp(false)
-              setShowLogin(true)
-            }}
-          />
-        )}
-      </div>
-    )
-  }
-
-  if (currentPage === 'contact') {
-    return (
-      <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
-        <Header
-          theme={theme}
-          onThemeToggle={toggleTheme}
-          onNavigate={handleNavigate}
-          currentPage={currentPage}
-          user={user}
-          onLogin={() => setShowLogin(true)}
-          onSignUp={() => setShowSignUp(true)}
-          onLogout={handleLogout}
-        />
-        <Contact />
-        <Footer />
-        {showLogin && (
-          <Login
-            onLogin={handleLogin}
-            onClose={() => setShowLogin(false)}
-            onSwitchToSignUp={() => {
-              setShowLogin(false)
-              setShowSignUp(true)
-            }}
-          />
-        )}
-        {showSignUp && (
-          <SignUp
-            onSignUp={handleSignUp}
-            onClose={() => setShowSignUp(false)}
-            onSwitchToLogin={() => {
-              setShowSignUp(false)
-              setShowLogin(true)
-            }}
-          />
-        )}
-      </div>
-    )
-  }
-
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', position: 'relative' }}>
+      <LiquidFilters />
+      <LiquidBackground intensity={0.3} speed={0.4} />
+      <LiquidWaves count={3} />
+      
       <Header
         onExport={result ? handleExport : undefined}
         onNewFile={handleNewFile}
@@ -375,211 +267,235 @@ export default function App() {
         theme={theme}
         showNewFile={!!result}
         onNavigate={handleNavigate}
-        currentPage={currentPage}
+        currentPage={'/'}
         user={user}
         onLogin={() => setShowLogin(true)}
         onSignUp={() => setShowSignUp(true)}
         onLogout={handleLogout}
       />
+      
+      <LiquidTransition>
+        <Routes>
+          <Route path="/" element={
+            !result && activeTab === 'upload' ? (
+              <InteractiveLiquid intensity={3}>
+                <UploadPage onAnalyze={onAnalyze} />
+              </InteractiveLiquid>
+            ) : (
+              <InteractiveLiquid intensity={2}>
+                <div className="responsive-padding-large" style={{ padding: '40px', paddingBottom: '200px', maxWidth: '1600px', margin: '0 auto' }}>
+                  <Tabs
+                    tabs={['Analysis', 'Music Generator', 'Practice', 'Live Detection', 'Tools', 'Visualize', 'Games']}
+                    activeTab={
+                      activeTab === 'upload'
+                        ? 'Analysis'
+                        : activeTab === 'practice'
+                          ? 'Practice'
+                          : activeTab === 'live'
+                            ? 'Live Detection'
+                            : activeTab === 'tools'
+                              ? 'Tools'
+                              : activeTab === 'visualize'
+                                ? 'Visualize'
+                                : 'Games'
+                    }
+                    onTabChange={(tab) => {
+                      if (tab === 'Analysis') setActiveTab('upload')
+                      else if (tab === 'Music Generator') setActiveTab('generator')
+                      else if (tab === 'Practice') setActiveTab('practice')
+                      else if (tab === 'Live Detection') setActiveTab('live')
+                      else if (tab === 'Tools') setActiveTab('tools')
+                      else if (tab === 'Visualize') setActiveTab('visualize')
+                      else if (tab === 'Games') setActiveTab('games')
+                    }}
+                  />
 
-      {!result && activeTab === 'upload' ? (
-        <UploadPage onAnalyze={onAnalyze} />
-      ) : (
-        <div className="responsive-padding-large" style={{ padding: '40px', paddingBottom: '200px', maxWidth: '1600px', margin: '0 auto' }}>
-          <Tabs
-            tabs={['Analysis', 'Music Generator', 'Practice', 'Live Detection', 'Tools', 'Visualize', 'Games']}
-            activeTab={
-              activeTab === 'upload'
-                ? 'Analysis'
-                : activeTab === 'practice'
-                  ? 'Practice'
-                  : activeTab === 'live'
-                    ? 'Live Detection'
-                    : activeTab === 'tools'
-                      ? 'Tools'
-                      : activeTab === 'visualize'
-                        ? 'Visualize'
-                        : 'Games'
-            }
-            onTabChange={(tab) => {
-              if (tab === 'Analysis') setActiveTab('upload')
-              else if (tab === 'Music Generator') setActiveTab('generator')
-              else if (tab === 'Practice') setActiveTab('practice')
-              else if (tab === 'Live Detection') setActiveTab('live')
-              else if (tab === 'Tools') setActiveTab('tools')
-              else if (tab === 'Visualize') setActiveTab('visualize')
-              else if (tab === 'Games') setActiveTab('games')
-            }}
-          />
-
-          {activeTab === 'generator' && (
-            <MusicGenerator
-              onAnalyze={onAnalyze}
-              analysisResult={result}
-              tempo={result?.tempo ? Math.round(result.tempo) : 120}
-            />
-          )}
-
-          {activeTab === 'upload' && result && (
-            <>
-              <div style={{ marginBottom: '32px' }}>
-                <h2 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-primary)' }}>
-                  {fileName}
-                </h2>
-                <p style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>
-                  {totalChords} chords detected • {vocalsText}
-                </p>
-              </div>
-
-              {fileUrl && (
-                <Waveform
-                  duration={result.durationSec}
-                  segments={segments}
-                  currentTime={currentTime}
-                  onSeek={handleSeek}
+              {activeTab === 'generator' && (
+                <MusicGenerator
+                  onAnalyze={onAnalyze}
+                  analysisResult={result}
+                  tempo={result?.tempo ? Math.round(result.tempo) : 120}
                 />
               )}
 
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                  gap: '24px',
-                  marginBottom: '32px',
-                }}
-              >
-                <AnalysisDetails
-                  key={result.key}
-                  scale={result.scale}
-                  keyConfidence={result.keyConfidence}
-                  vocalsDetected={result.vocalsDetected}
-                  vocalsConfidence={result.vocalsConfidence}
-                />
-                {result.pitches && result.pitches.length > 0 && <PitchAnalysis pitches={result.pitches} />}
-                {result.segments.length > 0 && (
-                  <Transpose segments={result.segments} onTranspose={setTransposedSegments} />
-                )}
-              </div>
+              {activeTab === 'upload' && result && (
+                <>
+                  <div style={{ marginBottom: '32px' }}>
+                    <h2 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-primary)' }}>
+                      {fileName}
+                    </h2>
+                    <p style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>
+                      {totalChords} chords detected • {vocalsText}
+                    </p>
+                  </div>
 
-              <ChordTimelineNew segments={segments} duration={result.durationSec} onSeek={handleSeek} />
+                  {fileUrl && (
+                    <Waveform
+                      duration={result.durationSec}
+                      segments={segments}
+                      currentTime={currentTime}
+                      onSeek={handleSeek}
+                    />
+                  )}
 
-              <ChordCards segments={segments} onSeek={handleSeek} />
-            </>
-          )}
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                      gap: '24px',
+                      marginBottom: '32px',
+                    }}
+                  >
+                    <AnalysisDetails
+                      key={result.key}
+                      scale={result.scale}
+                      keyConfidence={result.keyConfidence}
+                      vocalsDetected={result.vocalsDetected}
+                      vocalsConfidence={result.vocalsConfidence}
+                    />
+                    {result.pitches && result.pitches.length > 0 && <PitchAnalysis pitches={result.pitches} />}
+                    {result.segments.length > 0 && (
+                      <Transpose segments={result.segments} onTranspose={setTransposedSegments} />
+                    )}
+                  </div>
 
-          {activeTab === 'practice' && result && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                  gap: '24px',
-                }}
-              >
-                <ProgressTracker />
-                <DailyChallenge />
-              </div>
+                  <ChordTimelineNew segments={segments} duration={result.durationSec} onSeek={handleSeek} />
 
-              {fileUrl && (
-                <PracticeMode
-                  segments={segments}
-                  duration={result.durationSec}
-                  currentTime={currentTime}
-                  isPlaying={isPlaying}
-                  onSeek={handleSeek}
-                  playbackRate={playbackRate}
-                />
+                  <ChordCards segments={segments} onSeek={handleSeek} />
+                </>
               )}
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-                <ChordProgressionBuilder />
-              </div>
-            </div>
-          )}
+              {activeTab === 'practice' && result && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                      gap: '24px',
+                    }}
+                  >
+                    <ProgressTracker />
+                    <DailyChallenge />
+                  </div>
 
-          {activeTab === 'games' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-                <ChordChallenge />
-                <ProgressTracker />
-              </div>
-            </div>
-          )}
+                  {fileUrl && (
+                    <PracticeMode
+                      segments={segments}
+                      duration={result.durationSec}
+                      currentTime={currentTime}
+                      isPlaying={isPlaying}
+                      onSeek={handleSeek}
+                      playbackRate={playbackRate}
+                    />
+                  )}
 
-          {activeTab === 'live' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div>
-                <h2 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '16px', color: 'var(--text-primary)' }}>
-                  Live Chord Detection
-                </h2>
-                <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
-                  Use your microphone to detect chords in real-time
-                </p>
-                <MicrophoneInput onAudioData={handleLiveAudio} />
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-                <Tuner />
-                <Spectrogram isLive={true} />
-              </div>
-            </div>
-          )}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+                    <ChordProgressionBuilder />
+                  </div>
+                </div>
+              )}
 
-          {activeTab === 'tools' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
-                <Metronome initialBPM={result?.tempo ? Math.round(result.tempo) : 120} />
-                <Tuner />
-              </div>
-              <ChordSearch onChordSelect={setSelectedChord} />
-            </div>
-          )}
+              {activeTab === 'games' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+                    <ChordChallenge />
+                    <ProgressTracker />
+                  </div>
+                </div>
+              )}
 
-          {activeTab === 'visualize' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div>
-                <h2 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '16px', color: 'var(--text-primary)' }}>
-                  Chord Visualization
-                </h2>
-                <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
-                  Select a chord to see its fingering on different instruments
-                </p>
-              </div>
-              {result && fileUrl && <Spectrogram audioUrl={fileUrl} />}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
-                {segments.length > 0 && (
-                  <>
-                    <GuitarFretboard chord={selectedChord} instrument="guitar" />
-                    <PianoKeyboard chord={selectedChord} />
-                  </>
-                )}
-              </div>
-              {segments.length > 0 && (
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                  {segments.slice(0, 20).map((seg, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedChord(seg.chord)}
-                      style={{
-                        padding: '8px 16px',
-                        backgroundColor: selectedChord === seg.chord ? 'var(--accent-purple)' : 'var(--bg-tertiary)',
-                        color: 'var(--text-primary)',
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        border: 'none',
-                      }}
-                    >
-                      {seg.chord}
-                    </button>
-                  ))}
+              {activeTab === 'live' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div>
+                    <h2 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '16px', color: 'var(--text-primary)' }}>
+                      Live Chord Detection
+                    </h2>
+                    <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
+                      Use your microphone to detect chords in real-time
+                    </p>
+                    <MicrophoneInput onAudioData={handleLiveAudio} />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+                    <Tuner />
+                    <Spectrogram isLive={true} />
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'tools' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '24px' }}>
+                    <Metronome initialBPM={result?.tempo ? Math.round(result.tempo) : 120} />
+                    <Tuner />
+                  </div>
+                  <ChordSearch onChordSelect={setSelectedChord} />
+                </div>
+              )}
+
+              {activeTab === 'visualize' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                  <div>
+                    <h2 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '16px', color: 'var(--text-primary)' }}>
+                      Chord Visualization
+                    </h2>
+                    <p style={{ fontSize: '16px', color: 'var(--text-secondary)', marginBottom: '24px' }}>
+                      Select a chord to see its fingering on different instruments
+                    </p>
+                  </div>
+                  {result && fileUrl && <Spectrogram audioUrl={fileUrl} />}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '24px' }}>
+                    {segments.length > 0 && (
+                      <>
+                        <GuitarFretboard chord={selectedChord} instrument="guitar" />
+                        <PianoKeyboard chord={selectedChord} />
+                      </>
+                    )}
+                  </div>
+                  {segments.length > 0 && (
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      {segments.slice(0, 20).map((seg, idx) => (
+                        <LiquidButton
+                          key={idx}
+                          onClick={() => setSelectedChord(seg.chord)}
+                          style={{
+                            padding: '8px 16px',
+                            backgroundColor: selectedChord === seg.chord ? 'var(--accent-purple)' : 'var(--bg-tertiary)',
+                            color: 'var(--text-primary)',
+                            borderRadius: '8px',
+                            fontSize: '14px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            border: 'none',
+                          }}
+                        >
+                          {seg.chord}
+                        </LiquidButton>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-          )}
-        </div>
-      )}
-
+          )
+        } </LiquidTransition>
+      </InteractiveLiquid>
+      
+      <Route path="/features" element={
+        <InteractiveLiquid intensity={1}>
+          <Features />
+        </InteractiveLiquid>
+      } />
+      <Route path="/about" element={
+        <InteractiveLiquid intensity={1}>
+          <About />
+        </InteractiveLiquid>
+      } />
+      <Route path="/contact" element={
+        <InteractiveLiquid intensity={1}>
+          <Contact />
+        </InteractiveLiquid>
+      } />
+    </Routes>
       <Footer />
 
       {fileUrl && result && (
@@ -650,5 +566,15 @@ export default function App() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <Router>
+      <LiquidMotionSystem>
+        <AppContent />
+      </LiquidMotionSystem>
+    </Router>
   )
 }
