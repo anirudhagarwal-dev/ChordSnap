@@ -288,6 +288,8 @@ input[type="file"] {
 .liquid-page-wrapper {
   position: relative;
   overflow: hidden;
+}
+
 .liquid-page-bg {
   position: absolute;
   top: 0;
@@ -444,7 +446,7 @@ input[type="file"] {
   background-color: var(--accent-teal);
   opacity: 0.1;
   border-radius: 45% 55% 40% 60% / 60% 50% 50% 40%;
-} pointer-events: none;
+  pointer-events: none;
 }
 
 .liquid-bg-blob {
@@ -500,9 +502,8 @@ input[type="file"] {
   opacity: 0.8;
   transform: scale(2);
 }
-    padding: 20px !important;
-  }
 
+@media (max-width: 768px) {
   .mobile-stack {
     flex-direction: column !important;
     gap: 16px !important;

@@ -476,9 +476,9 @@ const AppContent = () => {
                 </div>
               )}
             </div>
+          </InteractiveLiquid>
           )
-        } </LiquidTransition>
-      </InteractiveLiquid>
+        } />
       
       <Route path="/features" element={
         <InteractiveLiquid intensity={1}>
@@ -496,6 +496,7 @@ const AppContent = () => {
         </InteractiveLiquid>
       } />
     </Routes>
+    </LiquidTransition>
       <Footer />
 
       {fileUrl && result && (
