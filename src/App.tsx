@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Header } from './components/Header'
 import { UploadPage } from './components/UploadPage'
 import { Waveform } from './components/Waveform'
@@ -542,7 +543,7 @@ const AppContent = () => {
         />
       )}
 
-      {isAnalyzing && (
+      {isAnalyzing && createPortal(
         <div
           style={{
             position: 'fixed',
@@ -564,7 +565,8 @@ const AppContent = () => {
               This may take a few moments
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
@@ -573,7 +575,7 @@ const AppContent = () => {
 export default function App() {
   return (
     <Router>
-      <LiquidMotionSystem>
+      <LiquidMotionSystem enableInteractions={false}>
         <AppContent />
       </LiquidMotionSystem>
     </Router>
