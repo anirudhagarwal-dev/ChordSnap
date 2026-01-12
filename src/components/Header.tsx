@@ -62,7 +62,7 @@ export function Header({
         <h1 
           data-lag="0.3"
           style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text-primary)', cursor: 'pointer' }}
-          onClick={() => onNavigate?.('home')}
+          onClick={() => onNavigate?.('/')}
         >
           ChordSnap
         </h1>
