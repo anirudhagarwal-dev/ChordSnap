@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 
 type Props = {
   onSignUp: (email: string, password: string, phone: string, name: string) => void
@@ -46,7 +47,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
     onSignUp(email, password, phone, name)
   }
 
-  return (
+  return createPortal(
     <div
       style={{
         position: 'fixed',
@@ -258,6 +259,7 @@ export function SignUp({ onSignUp, onClose, onSwitchToLogin }: Props) {
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
