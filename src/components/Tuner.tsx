@@ -56,6 +56,35 @@ type Props = {
   onTune?: (note: string, cents: number) => void
 }
 
+function TunerSparkles() {
+  const flakes = Array.from({ length: 12 }, (_, i) => i)
+  return (
+    <div className="tuner-sparkles">
+      {flakes.map((i) => {
+        const left = Math.random() * 100
+        const top = 10 + Math.random() * 80
+        const delay = Math.random() * 8
+        const duration = 10 + Math.random() * 6
+        const size = 3 + Math.random() * 4
+        return (
+          <div
+            key={i}
+            className="tuner-sparkle"
+            style={{
+              left: `${left}%`,
+              top: `${top}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              animationDelay: `${delay}s`,
+              animationDuration: `${duration}s`,
+            }}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
 export function Tuner({ onTune }: Props) {
   const [isActive, setIsActive] = useState(false)
   const [currentNote, setCurrentNote] = useState<string>('--')
@@ -257,6 +286,8 @@ export function Tuner({ onTune }: Props) {
   return (
     <div
       style={{
+        position: 'relative',
+        overflow: 'hidden',
         backgroundColor: 'var(--card-bg)',
         borderRadius: '16px',
         padding: '32px',
@@ -264,6 +295,7 @@ export function Tuner({ onTune }: Props) {
         textAlign: 'center',
       }}
     >
+      <TunerSparkles />
       <h3 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '24px', color: 'var(--text-primary)' }}>
         Guitar Tuner
       </h3>
