@@ -150,6 +150,79 @@ input[type="file"] {
   }
 }
 
+.floating-notes-container {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.floating-note {
+  position: absolute;
+  color: var(--text-primary);
+  animation-name: noteAppear;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+  transform: translateX(0);
+}
+
+@keyframes noteAppear {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(var(--note-drift-x, 0px), var(--note-drift-y, 0px), 0) scale(1);
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate3d(calc(var(--note-drift-x, 0px) * 1.5), calc(var(--note-drift-y, 0px) * 1.5), 0) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.music-wave-notes-container {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.music-wave-note {
+  position: absolute;
+  color: var(--text-primary);
+  animation-name: musicWaveDrift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  will-change: transform, opacity;
+}
+
+@keyframes musicWaveDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  60% {
+    transform: translate3d(var(--wave-drift-x, 80px), var(--wave-drift-y, -60px), 0) scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(calc(var(--wave-drift-x, 80px) * 1.4), calc(var(--wave-drift-y, -60px) * 1.4), 0) scale(0.9);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .desktop-only {
     display: none !important;
