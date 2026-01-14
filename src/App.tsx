@@ -38,6 +38,8 @@ import { InteractiveLiquid } from './components/InteractiveLiquid'
 import { LiquidButton } from './components/LiquidButton'
 import { recordChordDetected, recordPracticeTime } from './utils/gamification'
 import { LiquidMotionSystem } from './components/LiquidMotionSystem'
+import { FloatingNotes } from './components/FloatingNotes'
+import { MusicWaveNotes } from './components/MusicWaveNotes'
 import type { AnalyzeResponse, ChordSegment } from './types'
 import './index.css'
 
@@ -576,6 +578,8 @@ export default function App() {
   return (
     <Router>
       <LiquidMotionSystem enableInteractions={false}>
+        <MusicWaveNotes enabled waveSpeed={1} noteDuration={2.8} fadeTime={1.2} density={0.35} volume={0.06} />
+        <FloatingNotes />
         <AppContent />
       </LiquidMotionSystem>
     </Router>
