@@ -13,45 +13,35 @@ export function ChordCards({ segments, onSeek }: Props) {
   }
 
   return (
-    <div>
-      <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '24px', color: 'var(--text-primary)' }}>
+    <div className="minimal-gradient-bg" style={{ borderRadius: '20px', padding: '16px' }}>
+      <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '24px', color: 'var(--text-primary)', letterSpacing: '0.3px' }}>
         Detected Chords
       </h3>
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-          gap: '20px',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+          gap: '24px',
         }}
       >
         {segments.map((segment, i) => {
           const confidencePercent = Math.round(segment.confidence * 100)
           const isHighConfidence = confidencePercent >= 90
+          const floatDuration = 6 + ((i % 5) * 0.6)
+          const floatDelay = (i % 7) * 0.2
 
           return (
             <div
               key={i}
+              className="chord-card"
               style={{
-                backgroundColor: 'var(--card-bg)',
-                borderRadius: '12px',
-                padding: '20px',
-                border: '1px solid var(--border-color)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '16px',
-                transition: 'transform 0.2s ease',
+                animationDuration: `${floatDuration}s`,
+                animationDelay: `${floatDelay}s`,
                 cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.borderColor = 'var(--accent-purple)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.borderColor = 'var(--border-color)'
               }}
               onClick={() => onSeek?.(segment.startSec)}
             >
+              <div className="chord-card-content">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ fontSize: '32px', fontWeight: 700, color: 'var(--text-primary)' }}>{segment.chord}</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
@@ -94,9 +84,10 @@ export function ChordCards({ segments, onSeek }: Props) {
                       style={{
                         padding: '6px 12px',
                         backgroundColor: 'var(--bg-tertiary)',
-                        borderRadius: '6px',
-                        fontSize: '14px',
+                        borderRadius: '8px',
+                        fontSize: '12px',
                         color: 'var(--text-primary)',
+                        border: '1px solid var(--border-color)',
                       }}
                     >
                       {note}
@@ -104,6 +95,7 @@ export function ChordCards({ segments, onSeek }: Props) {
                   ))}
                 </div>
               )}
+              </div>
             </div>
           )
         })}
