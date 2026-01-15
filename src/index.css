@@ -223,6 +223,69 @@ input[type="file"] {
   }
 }
 
+/* Minimal premium gradient background for chord sections */
+.minimal-gradient-bg {
+  background: linear-gradient(180deg, rgba(163, 29, 29, 0.06), rgba(163, 29, 29, 0.0));
+}
+[data-theme='dark'] .minimal-gradient-bg {
+  background: linear-gradient(180deg, rgba(187, 134, 252, 0.08), rgba(187, 134, 252, 0.02));
+}
+
+/* Glassmorphism chord cards with ambient motion */
+.chord-card {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation-name: chordFloat;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-iteration-count: infinite;
+}
+.chord-card-content {
+  padding: 24px;
+}
+.chord-card:hover,
+.chord-card:focus-within {
+  animation-play-state: paused;
+  transform: scale(1.03);
+  box-shadow: 0 12px 36px rgba(163, 29, 29, 0.35);
+}
+[data-theme='dark'] .chord-card:hover,
+[data-theme='dark'] .chord-card:focus-within {
+  box-shadow: 0 12px 36px rgba(187, 134, 252, 0.35);
+}
+.chord-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.18), transparent 60%);
+  mix-blend-mode: soft-light;
+}
+[data-theme='light'] .chord-card {
+  background: rgba(255, 255, 255, 0.45);
+}
+[data-theme='dark'] .chord-card {
+  background: rgba(30, 30, 30, 0.35);
+}
+
+@keyframes chordFloat {
+  0% {
+    transform: translate3d(0, -2px, 0) rotate(0.6deg);
+  }
+  50% {
+    transform: translate3d(0, 3px, 0) rotate(-0.6deg);
+  }
+  100% {
+    transform: translate3d(0, -2px, 0) rotate(0.6deg);
+  }
+}
+
 @media (max-width: 768px) {
   .desktop-only {
     display: none !important;
