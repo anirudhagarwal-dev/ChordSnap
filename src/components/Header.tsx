@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LiquidButton } from './LiquidButton'
 
 type Props = {
@@ -29,6 +29,26 @@ export function Header({
   onLogout
 }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const userTriggerRef = useRef<HTMLDivElement | null>(null)
+  const userMenuRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node
+      if (
+        isUserMenuOpen &&
+        userMenuRef.current &&
+        userTriggerRef.current &&
+        !userMenuRef.current.contains(target) &&
+        !userTriggerRef.current.contains(target)
+      ) {
+        setIsUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [isUserMenuOpen])
 
   const navItems = [
     { label: 'Features', page: 'features' },
@@ -103,9 +123,6 @@ export function Header({
 
         {user ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
-              {user.name || user.email}
-            </span>
             {showNewFile && onNewFile && (
               <LiquidButton
                 onClick={onNewFile}
@@ -139,21 +156,76 @@ export function Header({
                 <span>Export</span>
               </LiquidButton>
             )}
-            <LiquidButton
-              onClick={onLogout}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: 'var(--accent-purple)',
-                color: 'var(--text-primary)',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: 500,
-              }}
+            
+            <div
+              style={{ position: 'relative' }}
             >
-              Logout
-            </LiquidButton>
+              <div 
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '6px', 
+                  cursor: 'pointer',
+                  padding: '6px 10px',
+                  borderRadius: '6px',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                onClick={() => setIsUserMenuOpen((v) => !v)}
+                ref={userTriggerRef}
+              >
+                <span style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+                  {user.name || user.email}
+                </span>
+                <span style={{ fontSize: '10px', color: 'var(--text-secondary)' }}>▼</span>
+              </div>
+
+              {isUserMenuOpen && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 4px)',
+                    right: 0,
+                    backgroundColor: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: '8px',
+                    padding: '6px',
+                    minWidth: '140px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                    zIndex: 1000,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px'
+                  }}
+                  ref={userMenuRef}
+                  onMouseLeave={() => setIsUserMenuOpen(false)}
+                >
+                  <LiquidButton
+                    onClick={onLogout}
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      textAlign: 'left',
+                      color: '#ff4444',
+                      background: 'none',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontWeight: 500
+                    }}
+                    onMouseEnter={(e: any) => e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'}
+                    onMouseLeave={(e: any) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
+                    <span>🚪</span> Logout
+                  </LiquidButton>
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
