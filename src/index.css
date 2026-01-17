@@ -161,31 +161,25 @@ input[type="file"] {
 .floating-note {
   position: absolute;
   color: var(--text-primary);
-  animation-name: noteAppear;
+  animation-name: noteFade;
   animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
   will-change: transform, opacity;
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
-@keyframes noteAppear {
+@keyframes noteFade {
   0% {
-    transform: translate3d(0, 0, 0) scale(0.8);
     opacity: 0;
+    transform: scale(0.9);
   }
   15% {
     opacity: 1;
-  }
-  50% {
-    transform: translate3d(var(--note-drift-x, 0px), var(--note-drift-y, 0px), 0) scale(1);
-    opacity: 0.8;
-  }
-  85% {
-    opacity: 0.2;
+    transform: scale(1);
   }
   100% {
-    transform: translate3d(calc(var(--note-drift-x, 0px) * 1.5), calc(var(--note-drift-y, 0px) * 1.5), 0) scale(0.9);
     opacity: 0;
+    transform: scale(0.92);
   }
 }
 
@@ -199,28 +193,10 @@ input[type="file"] {
 .music-wave-note {
   position: absolute;
   color: var(--text-primary);
-  animation-name: musicWaveDrift;
+  animation-name: noteFade;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   will-change: transform, opacity;
-}
-
-@keyframes musicWaveDrift {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.8);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  60% {
-    transform: translate3d(var(--wave-drift-x, 80px), var(--wave-drift-y, -60px), 0) scale(1);
-    opacity: 0.85;
-  }
-  100% {
-    transform: translate3d(calc(var(--wave-drift-x, 80px) * 1.4), calc(var(--wave-drift-y, -60px) * 1.4), 0) scale(0.9);
-    opacity: 0;
-  }
 }
 
 /* Minimal premium gradient background for chord sections */
