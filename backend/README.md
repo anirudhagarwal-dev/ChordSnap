@@ -6,6 +6,9 @@ ChordSnap is a Python-based web app that analyzes uploaded audio files (.mp3/.wa
 - **Backend:** FastAPI (Python) 🐍 with chroma-based chord detection (librosa) 🎼
 - **Frontend:** Vite ⚡ + React ⚛️ + TypeScript 📘
 
+## 🔗 Live Demo
+[https://chord-snap.vercel.app/]
+
 ## 🚀 Quick Start
 
 ### 1️⃣ Backend Setup
