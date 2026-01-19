@@ -8,6 +8,9 @@ ChordSnap is a Python-based web app that analyzes uploaded audio files (.mp3/.wa
 
 ## 🚀 Quick Start
 
+## 🔗 Live Demo
+[https://chord-snap.vercel.app/]
+
 ### 1️⃣ Backend Setup
 
 **⚠️ Important:** For MP3/MP4 file support, you may need **FFmpeg** installed:
