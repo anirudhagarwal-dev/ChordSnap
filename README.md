@@ -55,5 +55,3 @@ Ensure the backend is running on `http://localhost:8000` or update `VITE_API_BAS
   - `file`: Audio file 📁
   - `instrument`: Optional instrument type 🎻
   - **Returns:** `{ segments: [{ startSec, endSec, chord, confidence }], durationSec }`
-
- ---
